@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ywlpc4u3ggv"]
+
+[ext_resource type="PackedScene" uid="uid://cjcxwpmotjw6t" path="res://Assets/City/KayKit/building_C_withoutBase.gltf" id="1_8jc2s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8vy43"]
+size = Vector3(1.24973, 2.1868, 1.28711)
+
+[node name="building_C_withoutBase" instance=ExtResource("1_8jc2s")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0172882, 1.27309, 0.00488281)
+shape = SubResource("BoxShape3D_8vy43")
+debug_color = Color(0.937255, 0, 0.623529, 1)

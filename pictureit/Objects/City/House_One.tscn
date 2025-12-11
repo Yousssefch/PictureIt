@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://drutliawlxng0"]
+
+[ext_resource type="PackedScene" uid="uid://bftr3qs3otsln" path="res://Assets/City/KayKit/building_A_withoutBase.gltf" id="1_gpf2v"]
+[ext_resource type="Texture2D" uid="uid://ts486ukrspm6" path="res://Assets/City/KayKit/Textures/citybits_texture.png" id="2_rhpxf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iw00c"]
+albedo_texture = ExtResource("2_rhpxf")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i1yyh"]
+size = Vector3(1.3, 1.5, 1.3)
+
+[node name="building_A_withoutBase" instance=ExtResource("1_gpf2v")]
+
+[node name="building_A_withoutBase" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_iw00c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("BoxShape3D_i1yyh")

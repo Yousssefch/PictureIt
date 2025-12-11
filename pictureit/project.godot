@@ -18,6 +18,10 @@ config/icon="res://icon.svg"
 
 project/assembly_name="PictureIt"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/sky_3d/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

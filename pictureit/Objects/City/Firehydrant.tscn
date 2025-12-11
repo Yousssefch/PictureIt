@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://buy0ycpl2v2bi"]
+
+[ext_resource type="PackedScene" uid="uid://1xwjiuk0pmwi" path="res://Assets/City/KayKit/firehydrant.gltf" id="1_gwoff"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i7bcy"]
+size = Vector3(0.139187, 0.22229, 0.114197)
+
+[node name="firehydrant" instance=ExtResource("1_gwoff")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00259893, 0.113743, 0.00832593)
+shape = SubResource("BoxShape3D_i7bcy")

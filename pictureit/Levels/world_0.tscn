@@ -1,0 +1,452 @@
+[gd_scene load_steps=27 format=3 uid="uid://de3r13fdejrbn"]
+
+[ext_resource type="Shader" uid="uid://cvd0x7lon1ur6" path="res://addons/sky_3d/shaders/SkyMaterial.gdshader" id="1_002w4"]
+[ext_resource type="PackedScene" uid="uid://dcx64heowg170" path="res://Objects/City/base.tscn" id="1_63xdh"]
+[ext_resource type="Texture2D" uid="uid://cfqk60lpl5ljv" path="res://addons/sky_3d/assets/resources/SNoise.tres" id="2_a6jej"]
+[ext_resource type="PackedScene" uid="uid://bwv8ddn8qo6ya" path="res://Objects/City/Road_Straight.tscn" id="2_ddm3u"]
+[ext_resource type="Texture2D" uid="uid://cecwdqjol0ckd" path="res://addons/sky_3d/assets/textures/noiseClouds.png" id="3_63xdh"]
+[ext_resource type="PackedScene" uid="uid://bfjunat1fcv0u" path="res://Objects/City/Road_Corner_Curved.tscn" id="3_ddm3u"]
+[ext_resource type="Texture2D" uid="uid://2r8ylu6rg5dp" path="res://addons/sky_3d/assets/thirdparty/textures/moon/MoonMap.png" id="4_ddm3u"]
+[ext_resource type="PackedScene" uid="uid://cubh5r0u6cyep" path="res://Objects/City/Road_Junction.tscn" id="4_whqwh"]
+[ext_resource type="PackedScene" uid="uid://ywlpc4u3ggv" path="res://Objects/City/House_Three.tscn" id="5_mak4k"]
+[ext_resource type="Texture2D" uid="uid://djpfuyxkryegn" path="res://addons/sky_3d/assets/textures/noise.jpg" id="5_whqwh"]
+[ext_resource type="PackedScene" uid="uid://qko0q2ikao73" path="res://Objects/City/House_Two.tscn" id="6_ik4d0"]
+[ext_resource type="Texture2D" uid="uid://bm7dot7t7u1q4" path="res://addons/sky_3d/assets/thirdparty/textures/milkyway/StarField.jpg" id="6_vbk1e"]
+[ext_resource type="PackedScene" uid="uid://drutliawlxng0" path="res://Objects/City/House_One.tscn" id="7_0qjs1"]
+[ext_resource type="Texture2D" uid="uid://c1vwcdcdvb74a" path="res://addons/sky_3d/assets/thirdparty/textures/milkyway/Milkyway.jpg" id="7_einnq"]
+[ext_resource type="PackedScene" uid="uid://oyqbc1oc0g2y" path="res://Objects/City/House_Five.tscn" id="8_a0455"]
+[ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="8_ho7ci"]
+[ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/SkyDome.gd" id="9_fsgjy"]
+[ext_resource type="PackedScene" uid="uid://c36a7r8vx8igo" path="res://Objects/City/House_Six.tscn" id="9_v2amf"]
+[ext_resource type="PackedScene" uid="uid://buy0ycpl2v2bi" path="res://Objects/City/Firehydrant.tscn" id="10_4rf72"]
+[ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="10_6yvwx"]
+[ext_resource type="PackedScene" uid="uid://dy734jrhr58t0" path="res://Objects/City/Dumpster.tscn" id="11_vnal4"]
+[ext_resource type="PackedScene" uid="uid://bveof3o7w3nra" path="res://Objects/City/Box_One.tscn" id="12_4arwu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ah5pe"]
+shader = ExtResource("1_002w4")
+shader_parameter/sky_visible = true
+shader_parameter/color_correction = Vector2(0, 1.08)
+shader_parameter/ground_color = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/horizon_offset = 0.0
+shader_parameter/atm_darkness = 0.5
+shader_parameter/atm_sun_intensity = 18.0
+shader_parameter/atm_day_tint = Color(0.807843, 0.909804, 1, 1)
+shader_parameter/atm_horizon_light_tint = Color(0.980392, 0.635294, 0.462745, 1)
+shader_parameter/atm_night_tint = Color(0, 0, 0, 0)
+shader_parameter/atm_level_params = Vector3(1, 0, 0)
+shader_parameter/atm_thickness = 0.7
+shader_parameter/atm_beta_ray = Vector3(5.80454e-06, 1.35629e-05, 3.31126e-05)
+shader_parameter/atm_beta_mie = Vector3(3.038e-08, 3.038e-08, 3.038e-08)
+shader_parameter/sun_disk_color = Color(0.996094, 0.541334, 0.140076, 1)
+shader_parameter/sun_disk_intensity = 30.0
+shader_parameter/sun_disk_size = 0.02
+shader_parameter/atm_sun_mie_tint = Color(1, 1, 1, 1)
+shader_parameter/atm_sun_mie_intensity = 1.0
+shader_parameter/atm_sun_partial_mie_phase = Vector3(0.36, 1.64, 1.6)
+shader_parameter/moon_color = Color(1, 1, 1, 1)
+shader_parameter/moon_texture = ExtResource("4_ddm3u")
+shader_parameter/moon_texture_alignment = Vector3(7, 1.4, 4.8)
+shader_parameter/moon_texture_flip_u = false
+shader_parameter/moon_texture_flip_v = false
+shader_parameter/moon_size = 0.07
+shader_parameter/atm_moon_mie_tint = Color(0.137255, 0.184314, 0.292196, 1)
+shader_parameter/atm_moon_mie_intensity = 0.0
+shader_parameter/atm_moon_partial_mie_phase = Vector3(0.36, 1.64, 1.6)
+shader_parameter/starmap_color = Color(0.709804, 0.709804, 0.709804, 0.854902)
+shader_parameter/starmap_texture = ExtResource("7_einnq")
+shader_parameter/starmap_flip_u = false
+shader_parameter/starmap_flip_v = false
+shader_parameter/starmap_alignment = Vector3(2.68288, -0.25891, 0.40101)
+shader_parameter/star_rotation_offset = 9.38899
+shader_parameter/star_rotation = -11.2184
+shader_parameter/star_tilt = -1.29154
+shader_parameter/star_field_color = Color(1, 1, 1, 1)
+shader_parameter/star_field_texture = ExtResource("6_vbk1e")
+shader_parameter/star_scintillation = 0.75
+shader_parameter/star_scintillation_speed = 0.01
+shader_parameter/noise_tex = ExtResource("5_whqwh")
+shader_parameter/cirrus_visible = true
+shader_parameter/cirrus_coverage = 0.5
+shader_parameter/cirrus_thickness = 1.7
+shader_parameter/cirrus_absorption = 2.0
+shader_parameter/cirrus_sky_tint_fade = 0.5
+shader_parameter/cirrus_intensity = 10.0
+shader_parameter/cirrus_size = 1.0
+shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
+shader_parameter/cirrus_position1 = Vector2(0.234629, 0.854357)
+shader_parameter/cirrus_position2 = Vector2(0.234629, 0.854357)
+shader_parameter/cirrus_day_color = Color(0.824, 0.875, 1, 1)
+shader_parameter/cirrus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
+shader_parameter/cirrus_night_color = Color(0.09, 0.094, 0.129, 1)
+shader_parameter/cirrus_texture = ExtResource("2_a6jej")
+shader_parameter/cumulus_visible = true
+shader_parameter/cumulus_coverage = 0.55
+shader_parameter/cumulus_thickness = 0.0243
+shader_parameter/cumulus_absorption = 2.0
+shader_parameter/cumulus_noise_freq = 2.7
+shader_parameter/cumulus_sky_tint_fade = 0.0
+shader_parameter/cumulus_intensity = 6.985
+shader_parameter/cumulus_size = 0.5
+shader_parameter/cumulus_position = Vector2(721.697, 418.179)
+shader_parameter/cumulus_texture = ExtResource("3_63xdh")
+shader_parameter/cumulus_day_color = Color(0.823529, 0.87451, 1, 1)
+shader_parameter/cumulus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
+shader_parameter/cumulus_night_color = Color(0.090196, 0.094118, 0.129412, 1)
+shader_parameter/cumulus_partial_mie_phase = Vector3(0.957564, 1.04244, 0.412)
+shader_parameter/cumulus_mie_intensity = 1.0
+shader_parameter/show_azimuthal_grid = false
+shader_parameter/azimuthal_grid_color = Color(0.870588, 0.721569, 0.529412, 1)
+shader_parameter/azimuthal_grid_rotation_offset = 0.03
+shader_parameter/show_equatorial_grid = false
+shader_parameter/equatorial_grid_color = Color(0, 0.75, 1, 1)
+shader_parameter/equatorial_grid_rotation_offset = 0.03
+shader_parameter/moon_matrix = Basis(0, -0.682185, 0.73118, -0.986331, 0.120481, 0.112408, -0.164776, -0.721185, -0.67286)
+
+[sub_resource type="Sky" id="Sky_gqcjk"]
+sky_material = SubResource("ShaderMaterial_ah5pe")
+
+[sub_resource type="Environment" id="Environment_mak4k"]
+background_mode = 2
+sky = SubResource("Sky_gqcjk")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 2
+tonemap_mode = 3
+tonemap_white = 6.0
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ik4d0"]
+
+[node name="World_0" type="Node3D"]
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="Base" type="Node3D" parent="Map"]
+
+[node name="base" parent="Map/Base" instance=ExtResource("1_63xdh")]
+
+[node name="base2" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="base3" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="base4" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="base5" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="base6" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="base13" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="base14" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="base15" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
+
+[node name="base16" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -2)
+
+[node name="base35" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -4)
+
+[node name="base36" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+
+[node name="base37" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -8)
+
+[node name="base38" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -10)
+
+[node name="base39" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -12)
+
+[node name="base40" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -14)
+
+[node name="base41" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+
+[node name="base42" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -6)
+
+[node name="base43" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -8)
+
+[node name="base44" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -10)
+
+[node name="base45" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -12)
+
+[node name="base46" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -14)
+
+[node name="base17" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="base18" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2)
+
+[node name="base7" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="base8" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4)
+
+[node name="base9" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+
+[node name="base10" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 4)
+
+[node name="base24" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 4)
+
+[node name="base25" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 4)
+
+[node name="base26" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 2)
+
+[node name="base27" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="base28" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -2)
+
+[node name="base29" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -4)
+
+[node name="base30" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -6)
+
+[node name="base31" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -8)
+
+[node name="base32" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -10)
+
+[node name="base33" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -12)
+
+[node name="base34" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -14)
+
+[node name="base11" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 4)
+
+[node name="base12" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+
+[node name="base19" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 4)
+
+[node name="base20" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 4)
+
+[node name="base21" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 2)
+
+[node name="base22" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+
+[node name="base23" parent="Map/Base" instance=ExtResource("1_63xdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -2)
+
+[node name="road_straight" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 2)
+
+[node name="road_straight2" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, 2)
+
+[node name="road_straight3" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 0, 2)
+
+[node name="road_straight4" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 0, 2)
+
+[node name="road_straight5" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 0, 2)
+
+[node name="road_straight6" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0, 2)
+
+[node name="road_straight9" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 0, -16)
+
+[node name="road_straight26" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 0, -16)
+
+[node name="road_straight27" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -16)
+
+[node name="road_straight11" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -4)
+
+[node name="road_straight12" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 0, -4)
+
+[node name="road_straight13" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0, -4)
+
+[node name="road_corner_curved" parent="Map/Base" instance=ExtResource("3_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6, 0, 2)
+
+[node name="road_corner_curved2" parent="Map/Base" instance=ExtResource("3_ddm3u")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2, 0, -4)
+
+[node name="road_corner_curved3" parent="Map/Base" instance=ExtResource("3_ddm3u")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8, 0, 2)
+
+[node name="road_corner_curved4" parent="Map/Base" instance=ExtResource("3_ddm3u")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 8, 0, -16)
+
+[node name="road_straight7" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+
+[node name="road_straight10" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+
+[node name="road_straight14" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -2)
+
+[node name="road_straight15" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -4)
+
+[node name="road_straight16" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0.000101738, 0.000505072, -0.000101878, 1, 0.000257422, -0.000505043, -0.000257477, 1, 8, 0, -6)
+
+[node name="road_straight21" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0.000101738, 0.000505072, -0.000101878, 1, 0.000257422, -0.000505043, -0.000257477, 1, 2, 0, -6)
+
+[node name="road_straight17" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -8)
+
+[node name="road_straight22" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -8)
+
+[node name="road_straight18" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -10)
+
+[node name="road_straight23" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -10)
+
+[node name="road_straight24" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -12)
+
+[node name="road_straight25" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -14)
+
+[node name="road_straight19" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -12)
+
+[node name="road_straight20" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -14)
+
+[node name="road_straight8" parent="Map/Base" instance=ExtResource("2_ddm3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -2)
+
+[node name="road_junction" parent="Map/Base" instance=ExtResource("4_whqwh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -4)
+
+[node name="road_junction2" parent="Map/Base" instance=ExtResource("4_whqwh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -16)
+
+[node name="House" type="Node3D" parent="Map"]
+
+[node name="building_C_withoutBase" parent="Map/House" instance=ExtResource("5_mak4k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="building_B_withoutBase" parent="Map/House" instance=ExtResource("6_ik4d0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="building_A_withoutBase" parent="Map/House" instance=ExtResource("7_0qjs1")]
+
+[node name="building_E_withoutBase" parent="Map/House" instance=ExtResource("8_a0455")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="building_C_withoutBase2" parent="Map/House" instance=ExtResource("5_mak4k")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2, 0, 4)
+
+[node name="building_B_withoutBase2" parent="Map/House" instance=ExtResource("6_ik4d0")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 0, 4)
+
+[node name="building_A_withoutBase2" parent="Map/House" instance=ExtResource("7_0qjs1")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2, 0, 4)
+
+[node name="building_E_withoutBase2" parent="Map/House" instance=ExtResource("8_a0455")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 4)
+
+[node name="building_F_withoutBase" parent="Map/House" instance=ExtResource("9_v2amf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4, 0, 4)
+
+[node name="Extra" type="Node3D" parent="Map"]
+
+[node name="firehydrant" parent="Map/Extra" instance=ExtResource("10_4rf72")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.702518, 0, 0.937423)
+
+[node name="dumpster" parent="Map/Extra" instance=ExtResource("11_vnal4")]
+transform = Transform3D(-0.0354401, 0, -0.999372, 0, 1, 0, 0.999372, 0, -0.0354401, -3.20754, 0.068799, -0.279745)
+
+[node name="dumpster2" parent="Map/Extra" instance=ExtResource("11_vnal4")]
+transform = Transform3D(-0.0354401, 0, -0.999372, 0, 1, 0, 0.999372, 0, -0.0354401, -2.78668, 0.0712914, 4.22637)
+
+[node name="box_A" parent="Map/Extra" instance=ExtResource("12_4arwu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65719, 0.100704, 3.69057)
+
+[node name="box_A2" parent="Map/Extra" instance=ExtResource("12_4arwu")]
+transform = Transform3D(0.795981, 0, 0.605322, 0, 1, 0, -0.605322, 0, 0.795981, -2.86053, 0.108323, 3.48585)
+
+[node name="Sky3D" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mak4k")
+camera_attributes = SubResource("CameraAttributesPractical_ik4d0")
+script = ExtResource("8_ho7ci")
+editor_time_enabled = false
+game_time_enabled = false
+current_time = 12.0
+skydome_energy = 1.08
+cloud_intensity = 6.985
+sun_energy = 0.1
+wind_speed = 11.1
+wind_direction = 2.0944
+metadata/_custom_type_script = "uid://deo0gxkmk2ahd"
+
+[node name="SunLight" type="DirectionalLight3D" parent="Sky3D"]
+transform = Transform3D(0, -0.999334, -0.0364994, 0.630711, -0.0283242, 0.775501, -0.776018, -0.0230206, 0.63029, -0.0364994, 0.775501, 0.63029)
+light_energy = 0.1
+shadow_enabled = true
+
+[node name="MoonLight" type="DirectionalLight3D" parent="Sky3D"]
+transform = Transform3D(0, -0.986331, -0.164776, -0.682185, 0.120481, -0.721185, 0.73118, 0.112408, -0.67286, -0.164776, -0.721185, -0.67286)
+light_color = Color(0.572549, 0.776471, 0.956863, 1)
+light_energy = 0.0
+
+[node name="SkyDome" type="Node" parent="Sky3D"]
+script = ExtResource("9_fsgjy")
+exposure = 1.08
+sun_azimuth = -3.19944
+sun_altitude = -0.683288
+sun_light_energy = 0.1
+moon_azimuth = -6.04302
+moon_altitude = -2.37631
+wind_speed = 11.1
+wind_direction = 2.0944
+cumulus_intensity = 6.985
+
+[node name="TimeOfDay" type="Node" parent="Sky3D"]
+script = ExtResource("10_6yvwx")
+editor_time_enabled = false
+game_time_enabled = false
+dome_path = NodePath("../SkyDome")
+current_time = 12.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.567887, 0.542561, -0.618977, 0, 0.752001, 0.659162, 0.823107, -0.374329, 0.427051, 6.62074, 3.44555, 9.20778)
+fov = 80.1476

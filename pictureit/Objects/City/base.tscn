@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcx64heowg170"]
+
+[ext_resource type="PackedScene" uid="uid://squk8erqthq3" path="res://Assets/City/KayKit/base.gltf" id="1_rt4dd"]
+[ext_resource type="Texture2D" uid="uid://ts486ukrspm6" path="res://Assets/City/KayKit/Textures/citybits_texture.png" id="2_d7hrb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_67m2b"]
+albedo_texture = ExtResource("2_d7hrb")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tpxoo"]
+size = Vector3(2, 0.1, 2)
+
+[node name="base" instance=ExtResource("1_rt4dd")]
+
+[node name="base" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_67m2b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_tpxoo")
+debug_color = Color(0.964706, 0, 0.490196, 0.470588)
