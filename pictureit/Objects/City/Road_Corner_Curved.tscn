@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfjunat1fcv0u"]
+[gd_scene load_steps=4 format=3 uid="uid://bfjunat1fcv0u"]
 
 [ext_resource type="PackedScene" uid="uid://ba6rqmds2w5si" path="res://Assets/City/KayKit/road_corner_curved.gltf" id="1_0d0jg"]
+[ext_resource type="Material" uid="uid://dk2xe8el4olsm" path="res://Materials/House_One.tres" id="2_7q36u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7q36u"]
 size = Vector3(2.00677, 0.0944824, 2.00194)
 
 [node name="road_corner_curved" instance=ExtResource("1_0d0jg")]
+
+[node name="road_corner_curved" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_7q36u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0015564, 0.0533447, -0.00104523)

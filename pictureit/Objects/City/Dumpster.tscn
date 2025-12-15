@@ -1,11 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy734jrhr58t0"]
+[gd_scene load_steps=8 format=3 uid="uid://dy734jrhr58t0"]
 
 [ext_resource type="PackedScene" uid="uid://ekaegohou1cn" path="res://Assets/City/KayKit/dumpster.gltf" id="1_b3mb4"]
+[ext_resource type="Shader" uid="uid://d1nbuk1k2c8a6" path="res://Shaders/outline.gdshader" id="2_gppub"]
+[ext_resource type="Shader" uid="uid://branwfnwhuk63" path="res://Shaders/cel-shader-base.gdshader" id="3_th6w8"]
+[ext_resource type="Texture2D" uid="uid://ts486ukrspm6" path="res://Assets/City/KayKit/Textures/citybits_texture.png" id="4_f88rq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0o05h"]
+render_priority = 0
+shader = ExtResource("2_gppub")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xoqax"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_0o05h")
+shader = ExtResource("3_th6w8")
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/base_texture = ExtResource("4_f88rq")
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/specular_texture = ExtResource("4_f88rq")
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/fresnel_texture = ExtResource("4_f88rq")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tsbh3"]
 size = Vector3(0.593887, 0.307129, 0.313477)
 
 [node name="dumpster" instance=ExtResource("1_b3mb4")]
+
+[node name="dumpster" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_xoqax")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000481904, 0.174316, -0.0031454)

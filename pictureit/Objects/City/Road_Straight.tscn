@@ -1,11 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwv8ddn8qo6ya"]
+[gd_scene load_steps=6 format=3 uid="uid://bwv8ddn8qo6ya"]
 
 [ext_resource type="PackedScene" uid="uid://bwb6m15tmyqc1" path="res://Assets/City/KayKit/road_straight.gltf" id="1_v1hr4"]
+[ext_resource type="Texture2D" uid="uid://ts486ukrspm6" path="res://Assets/City/KayKit/Textures/citybits_texture.png" id="2_5ktmq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0txbp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trrvu"]
+next_pass = SubResource("ShaderMaterial_0txbp")
+albedo_texture = ExtResource("2_5ktmq")
+metallic = 0.84
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ktmq"]
 size = Vector3(2.00677, 0.0944824, 2.00194)
 
 [node name="road_straight" instance=ExtResource("1_v1hr4")]
+
+[node name="road_straight" parent="." index="0"]
+cast_shadow = 0
+surface_material_override/0 = SubResource("StandardMaterial3D_trrvu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0015564, 0.0533447, -0.00104523)

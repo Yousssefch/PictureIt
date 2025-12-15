@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://vbuo1jcw2j50"]
+
+[ext_resource type="PackedScene" uid="uid://dsb5hf48y35jr" path="res://Assets/City/Hills/Hill.glb" id="1_g2ba8"]
+[ext_resource type="Shader" uid="uid://branwfnwhuk63" path="res://Shaders/cel-shader-base.gdshader" id="2_dv3yv"]
+[ext_resource type="Shader" uid="uid://d1nbuk1k2c8a6" path="res://Shaders/outline.gdshader" id="2_itnne"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6vrgr"]
+render_priority = 0
+shader = ExtResource("2_itnne")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_itnne"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_6vrgr")
+shader = ExtResource("2_dv3yv")
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/color = Color(0.101898, 0.555221, 0.389029, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[node name="Hill" instance=ExtResource("1_g2ba8")]
+
+[node name="Plane" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_itnne")

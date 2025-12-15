@@ -1,10 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://drutliawlxng0"]
+[gd_scene load_steps=8 format=3 uid="uid://drutliawlxng0"]
 
 [ext_resource type="PackedScene" uid="uid://bftr3qs3otsln" path="res://Assets/City/KayKit/building_A_withoutBase.gltf" id="1_gpf2v"]
+[ext_resource type="Shader" uid="uid://d1nbuk1k2c8a6" path="res://Shaders/outline.gdshader" id="2_i1yyh"]
+[ext_resource type="Shader" uid="uid://branwfnwhuk63" path="res://Shaders/cel-shader-base.gdshader" id="2_iw00c"]
 [ext_resource type="Texture2D" uid="uid://ts486ukrspm6" path="res://Assets/City/KayKit/Textures/citybits_texture.png" id="2_rhpxf"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iw00c"]
-albedo_texture = ExtResource("2_rhpxf")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bqho1"]
+render_priority = 0
+shader = ExtResource("2_i1yyh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rhpxf"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_bqho1")
+shader = ExtResource("2_iw00c")
+shader_parameter/ao_light_affect = 0.084
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/base_texture = ExtResource("2_rhpxf")
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/specular_texture = ExtResource("2_rhpxf")
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/fresnel_texture = ExtResource("2_rhpxf")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i1yyh"]
 size = Vector3(1.3, 1.5, 1.3)
@@ -12,8 +29,12 @@ size = Vector3(1.3, 1.5, 1.3)
 [node name="building_A_withoutBase" instance=ExtResource("1_gpf2v")]
 
 [node name="building_A_withoutBase" parent="." index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_iw00c")
+surface_material_override/0 = SubResource("ShaderMaterial_rhpxf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("BoxShape3D_i1yyh")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32897, 1.33742, 0.907952)
+visible = false

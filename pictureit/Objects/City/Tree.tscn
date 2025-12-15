@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn452cy8k6jmp"]
+
+[ext_resource type="PackedScene" uid="uid://c3u70osnjtyh1" path="res://Assets/City/Stylized_Tree/scene.gltf" id="1_ws6n0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_36po4"]
+size = Vector3(0.248322, 0.532227, 0.205566)
+
+[node name="scene" instance=ExtResource("1_ws6n0")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00127751, 0.277049, 0.00462118)
+shape = SubResource("BoxShape3D_36po4")

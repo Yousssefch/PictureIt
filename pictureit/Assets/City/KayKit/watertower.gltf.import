@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/watertower.gltf-d76b0d4cea16cf4b7967dfa0ec824
 
 [params]
 
-nodes/root_type=""
+nodes/root_type="StaticBody3D"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

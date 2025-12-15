@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://b5cktsxsr4fw8"]
+
+[ext_resource type="PackedScene" uid="uid://c8v0a8cwgoho5" path="res://Assets/City/KayKit/building_H_withoutBase.gltf" id="1_ltojv"]
+[ext_resource type="Shader" uid="uid://d1nbuk1k2c8a6" path="res://Shaders/outline.gdshader" id="2_thvx2"]
+[ext_resource type="Shader" uid="uid://branwfnwhuk63" path="res://Shaders/cel-shader-base.gdshader" id="3_0khjb"]
+[ext_resource type="Texture2D" uid="uid://ts486ukrspm6" path="res://Assets/City/KayKit/Textures/citybits_texture.png" id="4_y5a7m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0aidj"]
+render_priority = 0
+shader = ExtResource("2_thvx2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ot1fg"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_0aidj")
+shader = ExtResource("3_0khjb")
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/base_texture = ExtResource("4_y5a7m")
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/specular_texture = ExtResource("4_y5a7m")
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/fresnel_texture = ExtResource("4_y5a7m")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8vqve"]
+size = Vector3(2.0882, 2.79214, 1.12759)
+
+[node name="building_H_withoutBase" instance=ExtResource("1_ltojv")]
+
+[node name="building_H_withoutBase" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_ot1fg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(0.999727, 0, 0.0233504, 0, 1, 0, -0.0233504, 0, 0.999727, -0.0125941, 1.64809, 0.0641086)
+shape = SubResource("BoxShape3D_8vqve")
