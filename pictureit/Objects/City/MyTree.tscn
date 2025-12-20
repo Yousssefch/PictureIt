@@ -1,0 +1,69 @@
+[gd_scene load_steps=16 format=3 uid="uid://biepy16ubyuwu"]
+
+[ext_resource type="PackedScene" uid="uid://d13yrymhhchvt" path="res://Assets/City/My_Tree/Tree_b_Two_mesh.glb" id="1_hgw3s"]
+[ext_resource type="Shader" uid="uid://d1nbuk1k2c8a6" path="res://Shaders/outline.gdshader" id="2_bvqcx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rq2v6"]
+render_priority = 0
+shader = ExtResource("2_bvqcx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k8pfn"]
+next_pass = SubResource("ShaderMaterial_rq2v6")
+albedo_color = Color(0.675111, 0.354532, 9.62615e-08, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jqkak"]
+render_priority = 0
+shader = ExtResource("2_bvqcx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bdmwp"]
+next_pass = SubResource("ShaderMaterial_jqkak")
+albedo_color = Color(0.219608, 0.596078, 0.552941, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yf3nk"]
+render_priority = 0
+shader = ExtResource("2_bvqcx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00a5j"]
+next_pass = SubResource("ShaderMaterial_yf3nk")
+albedo_color = Color(0.333151, 0.654996, 0.457351, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vrtcg"]
+render_priority = 0
+shader = ExtResource("2_bvqcx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i0ixn"]
+next_pass = SubResource("ShaderMaterial_vrtcg")
+albedo_color = Color(0.2, 0.486275, 0.388235, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uo7fl"]
+render_priority = 0
+shader = ExtResource("2_bvqcx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j0fvs"]
+next_pass = SubResource("ShaderMaterial_uo7fl")
+albedo_color = Color(0.127933, 0.382423, 0.230341, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b7alb"]
+render_priority = 0
+shader = ExtResource("2_bvqcx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1wjq1"]
+next_pass = SubResource("ShaderMaterial_b7alb")
+albedo_color = Color(0.163492, 0.438446, 0.376173, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bvqcx"]
+size = Vector3(2.56976, 8.04088, 1.78528)
+
+[node name="Tree_b_Two_mesh" instance=ExtResource("1_hgw3s")]
+
+[node name="Cylinder_011" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_k8pfn")
+surface_material_override/1 = SubResource("StandardMaterial3D_bdmwp")
+surface_material_override/2 = SubResource("StandardMaterial3D_00a5j")
+surface_material_override/3 = SubResource("StandardMaterial3D_i0ixn")
+surface_material_override/4 = SubResource("StandardMaterial3D_j0fvs")
+surface_material_override/5 = SubResource("StandardMaterial3D_1wjq1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.108551, 3.52044, 0.392639)
+shape = SubResource("BoxShape3D_bvqcx")

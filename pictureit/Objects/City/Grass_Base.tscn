@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cgwac6fpf1t47" path="res://Assets/City/KayKit/Textures/grass.webp" id="1_p0mqj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3iclj"]
+albedo_color = Color(0.838897, 0.838897, 0.838897, 1)
 albedo_texture = ExtResource("1_p0mqj")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p0mqj"]

@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://5excfimvjo43"]
+
+[ext_resource type="PackedScene" uid="uid://cx6etd02uckod" path="res://Assets/City/MyFence/Fence.glb" id="1_1dkar"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xvtjc"]
+size = Vector3(8.17081, 7.39941, 1.34839)
+
+[node name="Fence" instance=ExtResource("1_1dkar")]
+
+[node name="h1_005" parent="." index="0"]
+transform = Transform3D(0, 4.08, 0, -0.22, 0, 0, 0, 0, 0.16, 0.00884342, 2, 0.1)
+
+[node name="h1_006" parent="." index="1"]
+transform = Transform3D(0, 4.08, 0, -0.22, 0, 0, 0, 0, 0.16, 0.00884342, 4, 0.1)
+
+[node name="h1_007" parent="." index="2"]
+transform = Transform3D(0, 4.08, 0, -0.22, 0, 0, 0, 0, 0.16, 0.00884342, 6, 0.1)
+
+[node name="h1_001" parent="." index="3"]
+transform = Transform3D(0.22, 0, 0, 0, 3.6, 0, 0, 0, 0.16, -2.05952, 3.6, 0.103194)
+
+[node name="h1_002" parent="." index="4"]
+transform = Transform3D(0.22, 0, 0, 0, 3.6, 0, 0, 0, 0.16, -0.0595169, 3.6, 0.103194)
+
+[node name="h1_003" parent="." index="5"]
+transform = Transform3D(0.22, 0, 0, 0, 3.6, 0, 0, 0, 0.16, 1.94048, 3.6, 0.103194)
+
+[node name="h1" parent="." index="6"]
+transform = Transform3D(0.22, 0, 0, 0, 4, 0, 0, 0, 0.16, -4.05952, 4, 0)
+
+[node name="h1_004" parent="." index="7"]
+transform = Transform3D(0.22, 0, 0, 0, 4, 0, 0, 0, 0.16, 3.94048, 4, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0631771, 3.74951, -0.174194)
+shape = SubResource("BoxShape3D_xvtjc")

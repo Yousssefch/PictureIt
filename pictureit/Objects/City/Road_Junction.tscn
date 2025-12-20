@@ -1,11 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cubh5r0u6cyep"]
+[gd_scene load_steps=5 format=3 uid="uid://cubh5r0u6cyep"]
 
 [ext_resource type="PackedScene" uid="uid://j142q5fy2v0h" path="res://Assets/City/KayKit/road_junction.gltf" id="1_u22a5"]
+[ext_resource type="Texture2D" uid="uid://ts486ukrspm6" path="res://Assets/City/KayKit/Textures/citybits_texture.png" id="2_1mfox"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vt76g"]
+albedo_texture = ExtResource("2_1mfox")
+metallic = 0.84
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1mfox"]
 size = Vector3(2.00677, 0.0944824, 2.00194)
 
 [node name="road_junction" instance=ExtResource("1_u22a5")]
+
+[node name="road_junction" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_vt76g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0015564, 0.0533447, -0.00104523)

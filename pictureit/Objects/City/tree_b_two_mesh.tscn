@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6v705lpe186l"]
-
-[ext_resource type="PackedScene" uid="uid://d13yrymhhchvt" path="res://Assets/City/My_Tree/Tree_b_Two_mesh.glb" id="1_068qb"]
-
-[node name="Tree_b_Two_mesh" instance=ExtResource("1_068qb")]

@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://bb5ih446h3pyl"]
+
+[ext_resource type="PackedScene" uid="uid://7plrthd2q5ac" path="res://Assets/City/KayKit/trafficlight_C.gltf" id="1_6qdwf"]
+[ext_resource type="Shader" uid="uid://d1nbuk1k2c8a6" path="res://Shaders/outline.gdshader" id="2_eiaww"]
+[ext_resource type="Shader" uid="uid://branwfnwhuk63" path="res://Shaders/cel-shader-base.gdshader" id="3_aecej"]
+[ext_resource type="Texture2D" uid="uid://ts486ukrspm6" path="res://Assets/City/KayKit/Textures/citybits_texture.png" id="4_vw7wa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1boc7"]
+render_priority = 0
+shader = ExtResource("2_eiaww")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0tm5"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_1boc7")
+shader = ExtResource("3_aecej")
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/base_texture = ExtResource("4_vw7wa")
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7c6g6"]
+size = Vector3(0.0725403, 0.853149, 0.0789948)
+
+[node name="trafficlight_C" instance=ExtResource("1_6qdwf")]
+
+[node name="trafficlight_C" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_d0tm5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00012958, 0.432278, 0.00380707)
+shape = SubResource("BoxShape3D_7c6g6")

@@ -1,0 +1,37 @@
+[gd_scene load_steps=9 format=3 uid="uid://dphvkp8mixup1"]
+
+[ext_resource type="PackedScene" uid="uid://ccai3l64b1uks" path="res://Assets/City/MyBench/Bench.glb" id="1_eogug"]
+[ext_resource type="Shader" uid="uid://d1nbuk1k2c8a6" path="res://Shaders/outline.gdshader" id="2_oex2q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v15ku"]
+albedo_color = Color(0, 0, 0.0941176, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tivej"]
+render_priority = 0
+shader = ExtResource("2_oex2q")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwpai"]
+next_pass = SubResource("ShaderMaterial_tivej")
+albedo_color = Color(0, 0, 0.0941176, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dfje8"]
+render_priority = 0
+shader = ExtResource("2_oex2q")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8jdj"]
+next_pass = SubResource("ShaderMaterial_dfje8")
+albedo_color = Color(0.89972, 0.439928, 3.85046e-07, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_36mou"]
+size = Vector3(5.4281, 1.07387, 2.74561)
+
+[node name="Bench" instance=ExtResource("1_eogug")]
+
+[node name="Leg_005" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_v15ku")
+surface_material_override/1 = SubResource("StandardMaterial3D_rwpai")
+surface_material_override/2 = SubResource("StandardMaterial3D_n8jdj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.57159, 2.35904, -1.23315)
+shape = SubResource("BoxShape3D_36mou")
