@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy8cm5leitwe7"]
+
+[ext_resource type="PackedScene" uid="uid://cnfefwru3fcvq" path="res://Objects/City/Taxi.tscn" id="1_11gxr"]
+
+[node name="TestCarScene" type="Node3D"]
+
+[node name="Taxi" parent="." instance=ExtResource("1_11gxr")]
+TargetPositions = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 0, 1)])
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.0016406, -0.997914, -0.0645322, 0, -0.0645323, 0.997916, -0.999999, 0.00163718, 0.000105872, 0.490077, 4.35181, 0.339257)

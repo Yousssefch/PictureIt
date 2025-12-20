@@ -4484,8 +4484,8 @@ shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_intensity = 10.0
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.880355, 0.731823)
-shader_parameter/cirrus_position2 = Vector2(0.880355, 0.731823)
+shader_parameter/cirrus_position1 = Vector2(0.959182, 0.595303)
+shader_parameter/cirrus_position2 = Vector2(0.959182, 0.595303)
 shader_parameter/cirrus_day_color = Color(0.824, 0.875, 1, 1)
 shader_parameter/cirrus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
 shader_parameter/cirrus_night_color = Color(0.09, 0.094, 0.129, 1)
@@ -4498,7 +4498,7 @@ shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_intensity = 0.6
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(788.014, 455.175)
+shader_parameter/cumulus_position = Vector2(39.7909, 22.9687)
 shader_parameter/cumulus_texture = ExtResource("3_63xdh")
 shader_parameter/cumulus_day_color = Color(0.823529, 0.87451, 1, 1)
 shader_parameter/cumulus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
@@ -5427,4 +5427,4 @@ dome_path = NodePath("../SkyDome")
 current_time = 10.12
 
 [node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(-0.997921, 0, 0.0644452, 0, 1, 0, -0.0644452, 0, -0.997921, 209.564, 154.774, -87.8329)
+transform = Transform3D(-0.997921, 0, 0.0644452, 0, 1, 0, -0.0644452, 0, -0.997921, 122.374, 82.0588, -463.235)
