@@ -205,7 +205,6 @@ script = ExtResource("2_ds0aj")
 TargetPositions = Array[Vector3]([Vector3(100, 100, 0)])
 
 [node name="car_taxi" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_rcoke")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ds0aj")

@@ -1,10 +1,11 @@
 using Godot;
 using System;
+using System.Runtime;
 
 public partial class Cars : CharacterBody3D
 {
     [Export] public Godot.Collections.Array<Vector3> TargetPositions { get; set; }
-    [Export] public float Speed = 1.0f;
+    [Export] public float Speed = 50.0f;
     int currentTargetIndex = 0;
     int targetPositionsCount = 0;
     Vector3 currentTargetPosition;
@@ -22,24 +23,47 @@ public partial class Cars : CharacterBody3D
 
     override public void _Process(double delta)
     {
+        currentTargetPosition.Y = this.Position.Y; // Keep target position at the same height as the car
+        GD.Print("Car Position: " + this.Position);
+        GD.Print("Current Target Position: " + currentTargetPosition);
         if(targetPositionsCount == 0) return; // No target positions defined
 
         // Move towards the current target position
-        Vector3 direction = Vector3.Zero;
+        Vector3 directionToTarget = (currentTargetPosition - this.Position).Normalized();
+        GD.Print("Direction to Target: " + directionToTarget);
+        directionToTarget.Y = 0; // Keep movement in the horizontal plane
 
-        if(this.GlobalPosition.DistanceTo(currentTargetPosition) <= 0.01f)
+        //Calculate Distance to target
+        float distanceToTarget = this.Position.DistanceTo(currentTargetPosition);
+        float stepDistance = 0.05f; // Distance covered in this frame
+        if(distanceToTarget < stepDistance)
         {
-            this.GlobalPosition = currentTargetPosition;
+            this.Position = currentTargetPosition;
             currentTargetIndex = (currentTargetIndex + 1) % targetPositionsCount;
             currentTargetPosition = TargetPositions[currentTargetIndex];
         }
-
-        this.LookAt(currentTargetPosition, Vector3.Up);
-        Vector3 directionToTarget = (currentTargetPosition - this.GlobalPosition).Normalized();
         this.Velocity = directionToTarget * Speed;
-        
+        AdjustRotation(directionToTarget);
         MoveAndSlide();
-         
-        
+    }
+
+    void AdjustRotation(Vector3 direction)
+    {
+        float directionThreshold = 0.5f; // Threshold to determine significant direction
+        switch (direction)
+        {
+            case Vector3 dir when dir.X > directionThreshold:
+                this.Rotation = new Vector3(0, Mathf.DegToRad(90), 0);
+                break;
+            case Vector3 dir when dir.X < -directionThreshold:
+                this.Rotation = new Vector3(0, Mathf.DegToRad(-90), 0);
+                break;
+            case Vector3 dir when dir.Z > directionThreshold :
+                this.Rotation = new Vector3(0, 0, 0);
+                break;
+            case Vector3 dir when dir.Z < -directionThreshold:
+                this.Rotation = new Vector3(0, Mathf.DegToRad(180), 0);
+                break;
+        }
     }
 }
