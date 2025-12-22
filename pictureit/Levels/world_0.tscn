@@ -4485,8 +4485,8 @@ shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_intensity = 10.0
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.849659, 0.0378484)
-shader_parameter/cirrus_position2 = Vector2(0.849659, 0.0378484)
+shader_parameter/cirrus_position1 = Vector2(0.0830239, 0.934751)
+shader_parameter/cirrus_position2 = Vector2(0.0830239, 0.934751)
 shader_parameter/cirrus_day_color = Color(0.824, 0.875, 1, 1)
 shader_parameter/cirrus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
 shader_parameter/cirrus_night_color = Color(0.09, 0.094, 0.129, 1)
@@ -4499,7 +4499,7 @@ shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_intensity = 0.6
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(104.412, 60.1588)
+shader_parameter/cumulus_position = Vector2(25.412, 14.6708)
 shader_parameter/cumulus_texture = ExtResource("3_63xdh")
 shader_parameter/cumulus_day_color = Color(0.823529, 0.87451, 1, 1)
 shader_parameter/cumulus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
@@ -5428,14 +5428,14 @@ dome_path = NodePath("../SkyDome")
 current_time = 10.12
 
 [node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(0.959568, -0.0699646, 0.272644, -0.274698, -0.0214546, 0.961291, -0.0614069, -0.997319, -0.0398062, -58.276, 788.58, -71.2578)
+transform = Transform3D(0.959568, -0.0699646, 0.272644, -0.274698, -0.0214546, 0.961291, -0.0614069, -0.997319, -0.0398063, -58.276, 788.58, -403.107)
 
 [node name="Cars" type="Node3D" parent="."]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
 
 [node name="Taxi" parent="Cars" instance=ExtResource("37_jngd1")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 0.2, -4.4)
-TargetPositions = Array[Vector3]([Vector3(2, 0, -4.4), Vector3(-6, 0, -4.4), Vector3(-6, 0, 2.4), Vector3(8, 0, 2), Vector3(8, 0, -16), Vector3(2, 0, -16)])
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.7, 0.2, -4.3)
+TargetPositions = Array[Vector3]([Vector3(1.7, 0, -4.3), Vector3(-6.3, 0, -4.3), Vector3(-6.3, 0, 2.3), Vector3(8.3, 0, 2.3), Vector3(8.3, 0, -16.3), Vector3(1.7, 0, -16.3)])
 
 [node name="Marker3D" type="Marker3D" parent="Cars"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7, 0, -16.3)

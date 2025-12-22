@@ -41,8 +41,10 @@ public partial class Cars : CharacterBody3D
             this.Position = currentTargetPosition;
             currentTargetIndex = (currentTargetIndex + 1) % targetPositionsCount;
             currentTargetPosition = TargetPositions[currentTargetIndex];
+            directionToTarget = (currentTargetPosition - this.Position).Normalized();
         }
         this.Velocity = directionToTarget * Speed;
+        
         AdjustRotation(directionToTarget);
         MoveAndSlide();
     }
