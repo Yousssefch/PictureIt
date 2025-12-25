@@ -17,6 +17,7 @@ public partial class Player : CharacterBody3D
     private Node3D cameraPivot;
     private Camera3D camera;
     private float currentSpeedMultiplier = 1f;
+    private Node3D catGUI;
 
     //camera variables
 
@@ -28,7 +29,15 @@ public partial class Player : CharacterBody3D
     //FOV Effect
     [Export] float defaultFov = 65.0f;
     [Export] float runFov = 75.0f;
-    [Export] float currentFov = 65.0f;
+    float currentFov = 65.0f;
+
+    //Animations Variables
+    private AnimationTree animationTree;
+    private enum PlayerState{ Idle, Walking, Running, Jumping }
+    private PlayerState currentState = PlayerState.Idle;
+    private float walkingValue = 0.0f;
+    private float runningValue = 0.0f;
+    private float jumpingValue = 0.0f;
 
     public override void _Ready()
     {
@@ -37,6 +46,8 @@ public partial class Player : CharacterBody3D
         
         currentSpeedMultiplier = defaultSpeedMultiplier;
         currentFov = defaultFov;
+        catGUI = cameraPivot.GetNode<Node3D>("Cat");
+        animationTree = catGUI.GetNode<AnimationTree>("AnimationTree");
 
         camera = cameraPivot.GetNode<Camera3D>("Camera3D");
         SetPhysicsProcess(true); 
@@ -100,6 +111,10 @@ public partial class Player : CharacterBody3D
         // FOV effect
         currentFov = Mathf.Lerp(currentFov, isRunning ? runFov : defaultFov, 0.05f);
         camera.Fov = currentFov;
+
+        // Handle animations
+        currentState = GetPlayerState(_velocity);
+        HandleAnimations(dt);
     }
 
     private Vector3 _headBob(float t, float frequency, float amplitude)
@@ -107,5 +122,45 @@ public partial class Player : CharacterBody3D
         Vector3 pos = Vector3.Zero;
         pos.Y += Mathf.Sin(t * frequency) * amplitude;
         return pos;
-    } 
+    }
+
+    private PlayerState GetPlayerState(Vector3 velocity)
+    {
+        if (!IsOnFloor()) return PlayerState.Jumping;
+
+        if (velocity.Length() > 0)
+        {
+            return PlayerState.Walking;
+        }
+
+        return PlayerState.Idle;
+    }
+
+    private void HandleAnimations(float dt)
+    {
+        // Animation handling code would go here
+        switch (currentState)
+        {
+            case PlayerState.Idle:
+                walkingValue = Mathf.Lerp(walkingValue, 0.0f, 0.1f);
+                jumpingValue = Mathf.Lerp(jumpingValue, 0.0f, 0.1f);
+                break;
+            case PlayerState.Walking:
+                walkingValue = Mathf.Lerp(walkingValue, 1.0f, 0.1f);
+                jumpingValue = Mathf.Lerp(jumpingValue, 0.0f, 0.1f);
+                break;
+            case PlayerState.Running:
+                // Handle running animation
+                walkingValue = Mathf.Lerp(walkingValue, 1.0f, 0.1f);
+                jumpingValue = Mathf.Lerp(jumpingValue, 0.0f, 0.1f);
+                break;
+            case PlayerState.Jumping:
+                // Handle jumping animation
+                walkingValue = Mathf.Lerp(walkingValue, 0.0f, 0.1f);
+                jumpingValue = Mathf.Lerp(jumpingValue, 1.0f, 0.1f);
+                break;
+        }
+        animationTree.Set("parameters/Walk/blend_amount", walkingValue);
+        animationTree.Set("parameters/T-pose/blend_amount", jumpingValue); //TODO: change T-pose to Jumping
+    }
 }

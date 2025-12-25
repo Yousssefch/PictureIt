@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyotkmkdvt1gh"]
+[gd_scene load_steps=6 format=3 uid="uid://dyotkmkdvt1gh"]
 
 [ext_resource type="Script" uid="uid://bu1whp36utcsj" path="res://Scripts/Player.cs" id="1_flwfh"]
+[ext_resource type="PackedScene" uid="uid://ccafmfwsd1t80" path="res://Objects/GUI/cat.tscn" id="2_bkre6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dero1"]
 
@@ -8,21 +9,27 @@
 albedo_color = Color(0, 1, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_flwfh"]
-size = Vector3(0.884766, 1.9924, 1)
+size = Vector3(0.586075, 1.225, 0.592041)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_flwfh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("CapsuleMesh_dero1")
 surface_material_override/0 = SubResource("StandardMaterial3D_flwfh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0556641, -0.00315857, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000328086, 0.551778, -0.0101318)
 shape = SubResource("BoxShape3D_flwfh")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.743872, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.184125, 0.130219)
+cull_mask = 1048573
 fov = 65.0
+
+[node name="Cat" parent="CameraPivot" instance=ExtResource("2_bkre6")]
+transform = Transform3D(-0.4, 0, -3.49691e-08, 0, 0.4, 0, 3.49691e-08, 0, -0.4, 0, -0.743872, 0)
