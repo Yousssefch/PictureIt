@@ -1,4 +1,4 @@
-[gd_scene load_steps=294 format=3 uid="uid://de3r13fdejrbn"]
+[gd_scene load_steps=293 format=3 uid="uid://de3r13fdejrbn"]
 
 [ext_resource type="Shader" uid="uid://cvd0x7lon1ur6" path="res://addons/sky_3d/shaders/SkyMaterial.gdshader" id="1_002w4"]
 [ext_resource type="PackedScene" uid="uid://dcx64heowg170" path="res://Objects/City/base.tscn" id="1_63xdh"]
@@ -31,18 +31,12 @@
 [ext_resource type="Script" uid="uid://dieiojnt518h" path="res://addons/dreadpon.spatial_gardener/arborist/mmi_octree/mmi_octree_node.gd" id="21_d0p8d"]
 [ext_resource type="Script" uid="uid://c4s4x5b27vdf6" path="res://addons/dreadpon.spatial_gardener/arborist/mmi_octree/mmi_octree_manager.gd" id="22_gxg4q"]
 [ext_resource type="Script" uid="uid://d1pavk3gl4atd" path="res://addons/dreadpon.spatial_gardener/arborist/arborist.gd" id="23_d43fj"]
-[ext_resource type="PackedScene" uid="uid://dsb5hf48y35jr" path="res://Assets/City/Hills/Hill.glb" id="24_d0p8d"]
 [ext_resource type="PackedScene" uid="uid://cy6oxlvfmek6l" path="res://Objects/City/watertower.tscn" id="24_d43fj"]
 [ext_resource type="PackedScene" uid="uid://vbuo1jcw2j50" path="res://Objects/City/hill.tscn" id="24_gxg4q"]
 [ext_resource type="ArrayMesh" uid="uid://bwoxcx3h1fyo6" path="res://Assets/City/Grass/grass.res" id="25_gxg4q"]
 [ext_resource type="PackedScene" uid="uid://5excfimvjo43" path="res://Objects/City/Fence.tscn" id="29_sy070"]
 [ext_resource type="PackedScene" uid="uid://cnfefwru3fcvq" path="res://Objects/City/Taxi.tscn" id="37_jngd1"]
 [ext_resource type="PackedScene" uid="uid://dyotkmkdvt1gh" path="res://Objects/Main/player.tscn" id="38_03y0f"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mp0eu"]
-albedo_texture = ExtResource("19_4arwu")
-uv1_triplanar = true
-uv1_triplanar_sharpness = 5.27803
 
 [sub_resource type="Resource" id="Resource_gxg4q"]
 resource_local_to_scene = true
@@ -4423,6 +4417,11 @@ metadata/class = "Arborist"
 [sub_resource type="BoxShape3D" id="BoxShape3D_2svrq"]
 size = Vector3(50, 0.1, 50)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mp0eu"]
+albedo_texture = ExtResource("19_4arwu")
+uv1_triplanar = true
+uv1_triplanar_sharpness = 5.27803
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_sy070"]
 size = Vector3(6.007, 0.093, 10.002)
 
@@ -4489,8 +4488,8 @@ shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_intensity = 10.0
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.616223, 0.933143)
-shader_parameter/cirrus_position2 = Vector2(0.616223, 0.933143)
+shader_parameter/cirrus_position1 = Vector2(0.066164, 0.0382005)
+shader_parameter/cirrus_position2 = Vector2(0.066164, 0.0382005)
 shader_parameter/cirrus_day_color = Color(0.824, 0.875, 1, 1)
 shader_parameter/cirrus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
 shader_parameter/cirrus_night_color = Color(0.09, 0.094, 0.129, 1)
@@ -4503,7 +4502,7 @@ shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_intensity = 0.6
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(8.08028, 4.66557)
+shader_parameter/cumulus_position = Vector2(0.330822, 0.191002)
 shader_parameter/cumulus_texture = ExtResource("3_63xdh")
 shader_parameter/cumulus_day_color = Color(0.823529, 0.87451, 1, 1)
 shader_parameter/cumulus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
@@ -4526,6 +4525,7 @@ background_mode = 2
 sky = SubResource("Sky_gqcjk")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.8
 reflected_light_source = 2
 tonemap_mode = 3
 tonemap_white = 6.0
@@ -4542,7 +4542,7 @@ volumetric_fog_detail_spread = 2.2974
 [node name="World_0" type="Node3D"]
 
 [node name="Map" type="Node3D" parent="."]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 
 [node name="Base" type="Node3D" parent="Map"]
 
@@ -4864,7 +4864,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -4)
 
 [node name="road_straight16" parent="Map/Base" instance=ExtResource("2_ddm3u")]
-transform = Transform3D(1, 0.000101738, 0.000505072, -0.000101878, 1, 0.000257422, -0.000505043, -0.000257477, 1, 8, 0, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -6)
 
 [node name="road_straight21" parent="Map/Base" instance=ExtResource("2_ddm3u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
@@ -4903,7 +4903,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -10)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -8)
 
 [node name="road_straight34" parent="Map/Base" instance=ExtResource("2_ddm3u")]
-transform = Transform3D(0.999992, 0.00406661, 0, -0.00406661, 0.999992, 0, 0, 0, 1, -6, 0, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
 
 [node name="road_straight35" parent="Map/Base" instance=ExtResource("2_ddm3u")]
 transform = Transform3D(0.999991, 0, 0.00422368, 0, 1, 0, -0.00422368, 0, 0.999991, -6, 0, -6)
@@ -5009,7 +5009,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -9.932
 transform = Transform3D(-0.999806, 0, 0.0197034, 0, 1, 0, -0.0197034, 0, -0.999806, -11.9879, 0, -2)
 
 [node name="building_B_withoutBase17" parent="Map/House" instance=ExtResource("6_ik4d0")]
-transform = Transform3D(0.999884, 0, -0.015236, 0, 1, 0, 0.015236, 0, 0.999884, -11.9269, 0.183374, -6.00342)
+transform = Transform3D(0.999884, 0, -0.015236, 0, 1, 0, 0.015236, 0, 0.999884, -11.9269, -0.0142429, -6.00342)
 
 [node name="building_A_withoutBase3" parent="Map/House" instance=ExtResource("7_0qjs1")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8, 0, -2)
@@ -5051,7 +5051,7 @@ transform = Transform3D(1.49616, 0, -0.0714974, 0, 1.5, 0, 0.107246, 0, 0.997441
 transform = Transform3D(0.0332599, 0, 0.999447, 0, 1, 0, -0.999447, 0, 0.0332599, 5.82712, 0, -4.03627)
 
 [node name="building_H_withoutBase2" parent="Map/House" instance=ExtResource("10_ik4d0")]
-transform = Transform3D(-0.0587585, 0, 1.49885, 0, 1.5, 0, -1.49885, 0, -0.0587585, -13.957, 0, -3.95109)
+transform = Transform3D(-0.0587585, 0, 1.49885, 0, 1.5, 0, -1.49885, 0, -0.0587585, -14.0119, -0.076797, -3.95109)
 
 [node name="building_F_withoutBase2" parent="Map/House" instance=ExtResource("9_v2amf")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4, 0, -2)
@@ -5075,7 +5075,7 @@ transform = Transform3D(0.0221987, 0, 0.999754, 0, 1, 0, -0.999754, 0, 0.0221987
 transform = Transform3D(0.998572, 0, -0.0534163, 0, 1, 0, 0.0534163, 0, 0.998572, -4.28456, 0, -17.8513)
 
 [node name="building_B_withoutBase11" parent="Map/House" instance=ExtResource("6_ik4d0")]
-transform = Transform3D(1.49796, 0, 0.0520748, 0, 1.5, 0, -0.0781122, 0, 0.998643, -6.70271, 0, -17.5407)
+transform = Transform3D(1.49796, 0, 0.0520748, 0, 1.5, 0, -0.0781122, 0, 0.998643, -6.80738, -0.0995228, -17.7926)
 
 [node name="building_B_withoutBase12" parent="Map/House" instance=ExtResource("6_ik4d0")]
 transform = Transform3D(0.99752, 0, -0.070383, 0, 1, 0, 0.070383, 0, 0.99752, -2.28728, 0, -17.8925)
@@ -5221,13 +5221,6 @@ transform = Transform3D(1.99901, -1.69267e-07, -0.0628214, 1.74846e-07, 2, 1.748
 
 [node name="Outmap" type="Node3D" parent="Map"]
 
-[node name="Plane" type="CSGBox3D" parent="Map/Outmap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.240853, -6.69056)
-layers = 2
-use_collision = true
-size = Vector3(50, 0.1, 50)
-material = SubResource("StandardMaterial3D_mp0eu")
-
 [node name="Trees" type="Node3D" parent="Map/Outmap"]
 
 [node name="Gardener" type="Node3D" parent="Map/Outmap"]
@@ -5247,6 +5240,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.140853, -6.69056)
 shape = SubResource("BoxShape3D_2svrq")
 
+[node name="Plane" type="CSGBox3D" parent="Map/Outmap/Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.140853, -6.69056)
+use_collision = true
+size = Vector3(50, 0.1, 50)
+material = SubResource("StandardMaterial3D_mp0eu")
+
 [node name="Hills" type="Node3D" parent="Map/Outmap"]
 
 [node name="watertower" parent="Map/Outmap/Hills" instance=ExtResource("24_d43fj")]
@@ -5263,9 +5262,6 @@ skeleton = NodePath("../..")
 [node name="Hill5" parent="Map/Outmap/Hills" instance=ExtResource("24_gxg4q")]
 transform = Transform3D(5.09239, 0, -3.17294, 0, 6, 0, 3.17294, 0, 5.09239, -45.6491, -47.0076, -74.601)
 skeleton = NodePath("../..")
-
-[node name="Hill8" parent="Map/Outmap/Hills" instance=ExtResource("24_d0p8d")]
-transform = Transform3D(3.30879, 0.717213, -2.13015, -1.58175, 3.4363, -1.29996, 1.59687, 1.91766, 3.12611, 85.7752, -32.8841, -120.636)
 
 [node name="Hill2" parent="Map/Outmap/Hills" instance=ExtResource("24_gxg4q")]
 transform = Transform3D(-3.09077, 1.62353, 4.87969, 0.222989, 5.73012, -1.76524, -5.13785, -0.727969, -3.01208, 10.2234, -38.1535, 49.4439)
@@ -5405,6 +5401,7 @@ editor_time_enabled = false
 game_time_enabled = false
 current_time = 10.12
 sun_energy = 0.05
+sky_contribution = 0.8
 wind_speed = 6.0
 wind_direction = 2.0944
 metadata/_custom_type_script = "uid://deo0gxkmk2ahd"
@@ -5439,23 +5436,20 @@ dome_path = NodePath("../SkyDome")
 current_time = 10.12
 
 [node name="Cars" type="Node3D" parent="."]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 
 [node name="Taxi" parent="Cars" instance=ExtResource("37_jngd1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.7, 0.118769, -4.3)
 TargetPositions = Array[Vector3]([Vector3(1.7, 0, -4.3), Vector3(-6.3, 0, -4.3), Vector3(-6.3, 0, 2.3), Vector3(8.3, 0, 2.3), Vector3(8.3, 0, -16.3), Vector3(1.7, 0, -16.3)])
+Speed = 10.0
 
 [node name="Marker3D" type="Marker3D" parent="Cars"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7, 0, -16.3)
 
 [node name="Player" parent="." instance=ExtResource("38_03y0f")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 397.197, 15.5622, -382.022)
-Speed = 50.0
-JumpVelocity = 10.0
-Gravity = 40.0
-defaultSpeedMultiplier = 0.5
-defaultBobFrequency = 0.25
-bobAmplitude = 0.03
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 6.51983, 17.7092)
+Speed = 20.0
+defaultBobFrequency = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.995486, 0, 0.0949077, 0, 1, 0, -0.0949077, 0, -0.995486, 400.088, 33.3208, -443.062)

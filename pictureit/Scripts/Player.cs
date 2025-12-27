@@ -39,8 +39,21 @@ public partial class Player : CharacterBody3D
     private float runningValue = 0.0f;
     private float jumpingValue = 0.0f;
 
+    private MeshInstance3D catMesh;
+
+    public override void _EnterTree()
+    {
+        SetMultiplayerAuthority(int.Parse(this.Name));
+    }
+
     public override void _Ready()
     {
+        cameraPivot = GetNode<Node3D>("CameraPivot");
+        catGUI = cameraPivot.GetNode<Node3D>("Cat");
+        animationTree = catGUI.GetNode<AnimationTree>("AnimationTree");
+        if(!IsMultiplayerAuthority()) return;
+        GD.Print("Player _Ready called for peer ID: " + this.Name);
+
         Input.MouseMode = Input.MouseModeEnum.Hidden;
         cameraPivot = GetNode<Node3D>("CameraPivot");
         
@@ -48,8 +61,11 @@ public partial class Player : CharacterBody3D
         currentFov = defaultFov;
         catGUI = cameraPivot.GetNode<Node3D>("Cat");
         animationTree = catGUI.GetNode<AnimationTree>("AnimationTree");
+        catMesh = catGUI.GetNode<MeshInstance3D>("Armature/Skeleton3D/Cat_007");
+        catMesh.Layers = 2; // Set cat mesh to layer 2 to be visible in the GUI camera only
 
         camera = cameraPivot.GetNode<Camera3D>("Camera3D");
+        camera.Current = true;
         SetPhysicsProcess(true); 
         GD.Print("Mc._Ready: script attached — ready and physics process enabled");
        
@@ -65,6 +81,7 @@ public partial class Player : CharacterBody3D
 
     public override void _UnhandledInput(InputEvent @event)
     {
+        if(!IsMultiplayerAuthority()) return;
         if(@event is InputEventMouseMotion)
         {
             InputEventMouseMotion mouseMotion = @event as InputEventMouseMotion;
@@ -81,6 +98,11 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
+        //Animations and movement only for the local player
+        HandleAnimations((float)delta);
+
+        if(!IsMultiplayerAuthority()) return;
+
         float dt = (float)delta;
 
         // Handle input
@@ -113,8 +135,19 @@ public partial class Player : CharacterBody3D
         camera.Fov = currentFov;
 
         // Handle animations
-        currentState = GetPlayerState(_velocity);
-        HandleAnimations(dt);
+        PlayerState newState = GetPlayerState(_velocity);
+        if(newState != currentState)
+        {
+            Rpc(nameof(UpdatePlayerState), (int)newState);
+            currentState = newState; //Change state locally as well
+        }
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+    private void UpdatePlayerState(int state)
+    {
+        GD.Print($"Updating player state to: {(PlayerState)state}");
+        this.currentState =  (PlayerState)state; //Change state on all peers
     }
 
     private Vector3 _headBob(float t, float frequency, float amplitude)
@@ -128,9 +161,10 @@ public partial class Player : CharacterBody3D
     {
         if (!IsOnFloor()) return PlayerState.Jumping;
 
-        if (velocity.Length() > 0)
+        if (velocity.Length() > 0 )
         {
-            return PlayerState.Walking;
+            if(Input.IsActionPressed("run")) return PlayerState.Running;
+            else return PlayerState.Walking;
         }
 
         return PlayerState.Idle;
@@ -138,29 +172,34 @@ public partial class Player : CharacterBody3D
 
     private void HandleAnimations(float dt)
     {
-        // Animation handling code would go here
         switch (currentState)
         {
             case PlayerState.Idle:
                 walkingValue = Mathf.Lerp(walkingValue, 0.0f, 0.1f);
                 jumpingValue = Mathf.Lerp(jumpingValue, 0.0f, 0.1f);
+                runningValue = Mathf.Lerp(runningValue, 0.0f, 0.1f);
                 break;
             case PlayerState.Walking:
                 walkingValue = Mathf.Lerp(walkingValue, 1.0f, 0.1f);
                 jumpingValue = Mathf.Lerp(jumpingValue, 0.0f, 0.1f);
+                runningValue = Mathf.Lerp(runningValue, 0.0f, 0.1f);
                 break;
             case PlayerState.Running:
                 // Handle running animation
-                walkingValue = Mathf.Lerp(walkingValue, 1.0f, 0.1f);
+                walkingValue = Mathf.Lerp(walkingValue, 0.0f, 0.1f);
                 jumpingValue = Mathf.Lerp(jumpingValue, 0.0f, 0.1f);
+                runningValue = Mathf.Lerp(runningValue, 1.0f, 0.1f);
                 break;
             case PlayerState.Jumping:
                 // Handle jumping animation
                 walkingValue = Mathf.Lerp(walkingValue, 0.0f, 0.1f);
                 jumpingValue = Mathf.Lerp(jumpingValue, 1.0f, 0.1f);
+                runningValue = Mathf.Lerp(runningValue, 0.0f, 0.1f);
                 break;
         }
         animationTree.Set("parameters/Walk/blend_amount", walkingValue);
-        animationTree.Set("parameters/T-pose/blend_amount", jumpingValue); //TODO: change T-pose to Jumping
+        animationTree.Set("parameters/Fall/blend_amount", jumpingValue); //TODO: change T-pose to Jumping
+        animationTree.Set("parameters/Run/blend_amount", runningValue);
+
     }
 }

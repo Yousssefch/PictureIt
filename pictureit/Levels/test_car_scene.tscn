@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cy8cm5leitwe7"]
+[gd_scene load_steps=27 format=3 uid="uid://cy8cm5leitwe7"]
 
 [ext_resource type="PackedScene" uid="uid://dyotkmkdvt1gh" path="res://Objects/Main/player.tscn" id="1_11gxr"]
 [ext_resource type="Shader" uid="uid://cvd0x7lon1ur6" path="res://addons/sky_3d/shaders/SkyMaterial.gdshader" id="2_bwjht"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="11_6fwn0"]
 [ext_resource type="Shader" uid="uid://d1nbuk1k2c8a6" path="res://Shaders/outline.gdshader" id="12_qsbpt"]
 [ext_resource type="Shader" uid="uid://branwfnwhuk63" path="res://Shaders/cel-shader-base.gdshader" id="13_ntsu6"]
+[ext_resource type="Script" uid="uid://ck474ab1xrdyl" path="res://Scripts/MultiplayerSpawner.cs" id="14_ntsu6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gxpow"]
 shader = ExtResource("2_bwjht")
@@ -65,8 +66,8 @@ shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_intensity = 10.0
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.0350958, 0.0350956)
-shader_parameter/cirrus_position2 = Vector2(0.0350958, 0.0350956)
+shader_parameter/cirrus_position1 = Vector2(0.00386554, 0.0038655)
+shader_parameter/cirrus_position2 = Vector2(0.00386554, 0.0038655)
 shader_parameter/cirrus_day_color = Color(0.824, 0.875, 1, 1)
 shader_parameter/cirrus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
 shader_parameter/cirrus_night_color = Color(0.09, 0.094, 0.129, 1)
@@ -79,7 +80,7 @@ shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_intensity = 0.6
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(0.175483, 0.175482)
+shader_parameter/cumulus_position = Vector2(0.0193277, 0.0193275)
 shader_parameter/cumulus_texture = ExtResource("4_qsbpt")
 shader_parameter/cumulus_day_color = Color(0.823529, 0.87451, 1, 1)
 shader_parameter/cumulus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
@@ -155,9 +156,6 @@ next_pass = SubResource("ShaderMaterial_ntsu6")
 albedo_color = Color(0.63371, 0.36033, 0.0264688, 1)
 
 [node name="TestCarScene" type="Node3D"]
-
-[node name="Player" parent="." instance=ExtResource("1_11gxr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.49676, 0)
 
 [node name="Sky3D" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_pgvdi")
@@ -236,7 +234,13 @@ material_override = SubResource("StandardMaterial3D_stnha")
 use_collision = true
 size = Vector3(50, 10, 1)
 
+[node name="Multi" type="Node3D" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Multi"]
+_spawnable_scenes = PackedStringArray("uid://dyotkmkdvt1gh")
+spawn_path = NodePath("../..")
+script = ExtResource("14_ntsu6")
+playerScene = ExtResource("1_11gxr")
+
 [node name="Camera3D" type="Camera3D" parent="."]
-process_priority = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00486517, 2.29612, 5.25417)
-current = true
+transform = Transform3D(0.804903, -0.314966, 0.502919, -0.503157, 0.0870458, 0.8598, -0.314584, -0.945103, -0.0884138, -2.51279, 11.5179, 0)
