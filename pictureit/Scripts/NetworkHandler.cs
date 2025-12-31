@@ -1,31 +1,34 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class NetworkHandler : Node
 {
-    private string IP_ADDRESS = "localhost";
-    private int PORT = 3000;
-    private ENetMultiplayerPeer peer;
+    PackedScene tubeServer;
+    PackedScene tubeClient;
+    override public void _Ready()
+    {
+        tubeServer = GD.Load<PackedScene>("res://Objects/Other/tube_server.tscn");
+        tubeClient = GD.Load<PackedScene>("res://Objects/Other/tube_join.tscn");
+    }
+
+    override public void _Process(double delta)
+    {
+    }
+
     public void CreateServer()
     {
-
-        peer = new ENetMultiplayerPeer();
-        peer.CreateServer(PORT, 32);
-        Multiplayer.MultiplayerPeer = peer;
-        GD.Print("Server created on port " + PORT);
+        var serverInstance = tubeServer.Instantiate();
+        AddChild(serverInstance);
+        
     }
 
-    public void CreateClient()
+    public void CreateClient(string oid)
     {
-        peer = new ENetMultiplayerPeer();
-        var error = peer.CreateClient(IP_ADDRESS, PORT);
-        if (error != Error.Ok)
-        {
-            GD.PrintErr("Failed to create client: " + error);
-            return;
-        }
-        Multiplayer.MultiplayerPeer = peer;
-        GD.Print("Client connected to " + IP_ADDRESS + ":" + PORT); 
+        var clientInstance = tubeClient.Instantiate();
+        clientInstance.Set("session_id", oid);
+        AddChild(clientInstance);
     }
+
  
 }

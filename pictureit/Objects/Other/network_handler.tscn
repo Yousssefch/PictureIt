@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3w5nu3anuj1b"]
+[gd_scene load_steps=4 format=3 uid="uid://c3w5nu3anuj1b"]
 
 [ext_resource type="Script" uid="uid://d2ow81rvq85u5" path="res://Scripts/NetworkHandler.cs" id="1_pk1gr"]
+[ext_resource type="Script" uid="uid://cy006uvidc4y" path="res://addons/tube/tube_client.gd" id="2_ixm22"]
+[ext_resource type="Resource" uid="uid://bw2vw8i2evx5o" path="res://tube_context.tres" id="3_sarjn"]
 
 [node name="NetworkHandler" type="Node"]
 script = ExtResource("1_pk1gr")
+
+[node name="TubeClient" type="Node" parent="."]
+script = ExtResource("2_ixm22")
+context = ExtResource("3_sarjn")
+peer_signaling_timeout = 10.0
+peer_signaling_max_attempts = 5
+metadata/_custom_type_script = "uid://cy006uvidc4y"

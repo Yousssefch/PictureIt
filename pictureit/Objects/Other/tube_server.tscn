@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://gd46xynuohc2"]
+
+[ext_resource type="Script" uid="uid://upi8mk44kwnt" path="res://Scripts/tube_server.gd" id="1_3ji2p"]
+
+[node name="tube_server" type="Node"]
+script = ExtResource("1_3ji2p")

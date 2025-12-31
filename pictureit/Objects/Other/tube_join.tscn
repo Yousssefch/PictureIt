@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bef262rjrp518"]
+
+[ext_resource type="Script" uid="uid://snelde0jdgq2" path="res://Scripts/tube_join.gd" id="1_xidw4"]
+
+[node name="tube_join" type="Node"]
+script = ExtResource("1_xidw4")
