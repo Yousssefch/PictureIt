@@ -15,13 +15,13 @@ public partial class HomeScreen : Control
     {
         network.CreateServer();
         GD.Print("Hosting game...");
-        GetTree().ChangeSceneToFile("res://Levels/test_car_scene.tscn");
+        GetTree().ChangeSceneToFile("res://Levels/world_0.tscn");
     }
     private void OnPressJoinButton()
     {
         string oid = oidInput.Text;
         GD.Print("Joining game with OID: " + oid);
         network.CreateClient(oid);
-        GetTree().ChangeSceneToFile("res://Levels/test_car_scene.tscn");
+        GetTree().ChangeSceneToFile("res://Levels/world_0.tscn");
     }
 }

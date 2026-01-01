@@ -1,4 +1,4 @@
-[gd_scene load_steps=293 format=3 uid="uid://de3r13fdejrbn"]
+[gd_scene load_steps=294 format=3 uid="uid://de3r13fdejrbn"]
 
 [ext_resource type="Shader" uid="uid://cvd0x7lon1ur6" path="res://addons/sky_3d/shaders/SkyMaterial.gdshader" id="1_002w4"]
 [ext_resource type="PackedScene" uid="uid://dcx64heowg170" path="res://Objects/City/base.tscn" id="1_63xdh"]
@@ -37,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://5excfimvjo43" path="res://Objects/City/Fence.tscn" id="29_sy070"]
 [ext_resource type="PackedScene" uid="uid://cnfefwru3fcvq" path="res://Objects/City/Taxi.tscn" id="37_jngd1"]
 [ext_resource type="PackedScene" uid="uid://dyotkmkdvt1gh" path="res://Objects/Main/player.tscn" id="38_03y0f"]
+[ext_resource type="Script" uid="uid://ck474ab1xrdyl" path="res://Scripts/MultiplayerSpawner.cs" id="38_sy070"]
 
 [sub_resource type="Resource" id="Resource_gxg4q"]
 resource_local_to_scene = true
@@ -4488,8 +4489,8 @@ shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_intensity = 10.0
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.0356802, 0.0206002)
-shader_parameter/cirrus_position2 = Vector2(0.0356802, 0.0206002)
+shader_parameter/cirrus_position1 = Vector2(0.201845, 0.00336202)
+shader_parameter/cirrus_position2 = Vector2(0.201845, 0.00336202)
 shader_parameter/cirrus_day_color = Color(0.824, 0.875, 1, 1)
 shader_parameter/cirrus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
 shader_parameter/cirrus_night_color = Color(0.09, 0.094, 0.129, 1)
@@ -4502,7 +4503,7 @@ shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_intensity = 0.6
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(0.178401, 0.103001)
+shader_parameter/cumulus_position = Vector2(26.006, 15.0136)
 shader_parameter/cumulus_texture = ExtResource("3_63xdh")
 shader_parameter/cumulus_day_color = Color(0.823529, 0.87451, 1, 1)
 shader_parameter/cumulus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
@@ -5446,10 +5447,17 @@ Speed = 10.0
 [node name="Marker3D" type="Marker3D" parent="Cars"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7, 0, -16.3)
 
-[node name="Player" parent="." instance=ExtResource("38_03y0f")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 6.51983, 17.7092)
-Speed = 13.0
-defaultBobFrequency = 0.5
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.995486, 0, 0.0949077, 0, 1, 0, -0.0949077, 0, -0.995486, 400.088, 33.3208, -443.062)
+
+[node name="Multi" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.40655, 17.1521)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Multi"]
+_spawnable_scenes = PackedStringArray("uid://dyotkmkdvt1gh")
+spawn_path = NodePath("..")
+script = ExtResource("38_sy070")
+playerScene = ExtResource("38_03y0f")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.28105, 18.8445)

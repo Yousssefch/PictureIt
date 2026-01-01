@@ -41,6 +41,18 @@ public partial class Player : CharacterBody3D
 
     private MeshInstance3D catMesh;
 
+    //Camera Mode
+    private bool isCameraModeActive = false;
+    private Vector3 initialCameraPosition;
+    private float targetCameraZPositionOffset = 1f;
+    private float targetCameraYPositionOffset = 0.5f;
+    private float playerSpeedDivisorInCameraMode = 2f;
+    private bool isCameraModeAnimationPlaying = false;
+    private Vector3 cameraBasePosition;
+    private CanvasLayer cameraFrame;
+    private AnimationPlayer frameAnimationPlayer;
+    private bool isFrameAnimationPlaying = false;
+
     public override void _EnterTree()
     {
         SetMultiplayerAuthority(int.Parse(this.Name));
@@ -64,7 +76,12 @@ public partial class Player : CharacterBody3D
         catMesh = catGUI.GetNode<MeshInstance3D>("Armature/Skeleton3D/Cat_007");
         catMesh.Layers = 2; // Set cat mesh to layer 2 to be visible in the GUI camera only
 
+        cameraFrame = GetNode<CanvasLayer>("CameraFrame");
+        frameAnimationPlayer = cameraFrame.GetNode<AnimationPlayer>("AnimationPlayer");
+
         camera = cameraPivot.GetNode<Camera3D>("Camera3D");
+        initialCameraPosition = camera.Position;
+        cameraBasePosition = camera.Position;
         camera.Current = true;
         SetPhysicsProcess(true); 
         GD.Print("Mc._Ready: script attached — ready and physics process enabled");
@@ -108,7 +125,7 @@ public partial class Player : CharacterBody3D
         // Handle input
         Vector2 input = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
         Vector3 direction = (cameraPivot.Transform.Basis * new Vector3(input.X, 0, input.Y)).Normalized();
-        bool isRunning = Input.IsActionPressed("run");
+        bool isRunning = Input.IsActionPressed("run") && !isCameraModeActive;
         bool space = Input.IsKeyPressed(Key.Space);
 
         //Handle movements
@@ -123,12 +140,11 @@ public partial class Player : CharacterBody3D
         else _velocity.Y -= Gravity * dt;
 
         Velocity = _velocity;
-        MoveAndSlide();
-        _velocity = Velocity;
+        
 
         // Camera bobbing effect
         t_bob += dt * Velocity.Length() * (IsOnFloor() ? 1f : 0f);
-        camera.Transform = new Transform3D(camera.Transform.Basis, _headBob(t_bob, defaultBobFrequency, bobAmplitude));
+        if(!isCameraModeAnimationPlaying) camera.Transform = new Transform3D(camera.Transform.Basis, cameraBasePosition + _headBob(t_bob, defaultBobFrequency, bobAmplitude));
 
         // FOV effect
         currentFov = Mathf.Lerp(currentFov, isRunning ? runFov : defaultFov, 0.05f);
@@ -141,6 +157,13 @@ public partial class Player : CharacterBody3D
             Rpc(nameof(UpdatePlayerState), (int)newState);
             currentState = newState; //Change state locally as well
         }
+
+        //All Others features
+        CameraMode();
+
+        //End Physics Process
+        MoveAndSlide();
+        _velocity = Velocity;
     }
 
     [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
@@ -168,6 +191,35 @@ public partial class Player : CharacterBody3D
         }
 
         return PlayerState.Idle;
+    }
+
+    private void CameraMode()
+    {
+        isCameraModeActive = Input.IsActionPressed("camera_mode");
+
+        Vector3 target = initialCameraPosition;
+
+        if (isCameraModeActive)
+        {
+            target.Y -= targetCameraYPositionOffset;
+            target.Z -= targetCameraZPositionOffset;
+            currentSpeedMultiplier = defaultSpeedMultiplier / playerSpeedDivisorInCameraMode;
+            if(!isFrameAnimationPlaying)
+            {
+                frameAnimationPlayer.PlayBackwards("Off");
+                isFrameAnimationPlaying = true;
+            }
+        }
+        else
+        {
+            if(isFrameAnimationPlaying)
+            {
+                frameAnimationPlayer.Play("Off");
+                isFrameAnimationPlaying = false;
+            }
+        }
+
+        cameraBasePosition = cameraBasePosition.Lerp(target, 0.1f);
     }
 
     private void HandleAnimations(float dt)
