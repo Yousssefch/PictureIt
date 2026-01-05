@@ -13,3 +13,7 @@ context = ExtResource("3_sarjn")
 peer_signaling_timeout = 10.0
 peer_signaling_max_attempts = 5
 metadata/_custom_type_script = "uid://cy006uvidc4y"
+
+[connection signal="peer_connected" from="TubeClient" to="." method="OnPeerConnected"]
+[connection signal="session_created" from="TubeClient" to="." method="OnSessionCreated"]
+[connection signal="session_joined" from="TubeClient" to="." method="OnSessionJoined"]

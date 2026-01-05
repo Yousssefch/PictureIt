@@ -6,15 +6,18 @@ public partial class MultiplayerSpawner : Godot.MultiplayerSpawner
     [Export] private PackedScene playerScene;
     public override void _Ready()
     {
-        if (Multiplayer.IsServer())
+        if(!Multiplayer.IsServer()) return;
+            
+        SpawnPlayer(Multiplayer.GetUniqueId());
+
+        foreach (var peerId in Multiplayer.GetPeers())
         {
-            SpawnPlayer(Multiplayer.GetUniqueId());
+            SpawnPlayer(peerId);
         }
-        Multiplayer.PeerConnected += OnPeerConnected;
+       
     }
     private void OnPeerConnected(long peerId)
     {
-        if (!Multiplayer.IsServer()) return;
         SpawnPlayer(peerId);
     }
 

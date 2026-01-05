@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://bi685186rmg8j"]
+
+[ext_resource type="Script" uid="uid://dbtkxx81b2gov" path="res://Scripts/GameController.cs" id="1_a262i"]
+[ext_resource type="PackedScene" uid="uid://b44io1ui7261q" path="res://Objects/UI/home_screen.tscn" id="2_nwl57"]
+[ext_resource type="PackedScene" uid="uid://ibgvvm6ok624" path="res://Levels/Lobby.tscn" id="3_6mxb4"]
+[ext_resource type="PackedScene" uid="uid://de3r13fdejrbn" path="res://Levels/world_0.tscn" id="4_4np0t"]
+[ext_resource type="Script" uid="uid://vdaaobgsb712" path="res://Levels/LevelManager.cs" id="5_4np0t"]
+
+[node name="GameController" type="Node"]
+script = ExtResource("1_a262i")
+homeScreenScene = ExtResource("2_nwl57")
+lobbyScene = ExtResource("3_6mxb4")
+gameScene = ExtResource("4_4np0t")
+
+[node name="Level" type="Node" parent="."]
+script = ExtResource("5_4np0t")
+
+[node name="HomeScreen" parent="Level" groups=["HomeScreen"] instance=ExtResource("2_nwl57")]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://ibgvvm6ok624", "uid://de3r13fdejrbn")
+spawn_path = NodePath("../Level")

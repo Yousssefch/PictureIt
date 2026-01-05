@@ -33,8 +33,8 @@ public partial class Player : CharacterBody3D
 
     //Animations Variables
     private AnimationTree animationTree;
-    private enum PlayerState{ Idle, Walking, Running, Jumping }
-    private PlayerState currentState = PlayerState.Idle;
+    private enum PlayerState{ Idle, Walking, Running, Jumping, Spawned }
+    private PlayerState currentState = PlayerState.Spawned;
     private float walkingValue = 0.0f;
     private float runningValue = 0.0f;
     private float jumpingValue = 0.0f;
@@ -51,7 +51,15 @@ public partial class Player : CharacterBody3D
     private Vector3 cameraBasePosition;
     private CanvasLayer cameraFrame;
     private AnimationPlayer frameAnimationPlayer;
+    private AnimationPlayer BlurAnimation;
     private bool isFrameAnimationPlaying = false;
+    private enum CameraSettings {Zoom, Warmth};
+    private CameraSettings currentCameraSetting = CameraSettings.Warmth;
+    private CanvasLayer blueLayer;
+    private ColorRect blueRect;
+    private CanvasLayer redLayer;
+    private ColorRect redRect;
+    private float scrollSensitivity = 2f;
 
     public override void _EnterTree()
     {
@@ -66,7 +74,7 @@ public partial class Player : CharacterBody3D
         if(!IsMultiplayerAuthority()) return;
         GD.Print("Player _Ready called for peer ID: " + this.Name);
 
-        Input.MouseMode = Input.MouseModeEnum.Hidden;
+        Input.MouseMode = Input.MouseModeEnum.Captured;
         cameraPivot = GetNode<Node3D>("CameraPivot");
         
         currentSpeedMultiplier = defaultSpeedMultiplier;
@@ -78,6 +86,11 @@ public partial class Player : CharacterBody3D
 
         cameraFrame = GetNode<CanvasLayer>("CameraFrame");
         frameAnimationPlayer = cameraFrame.GetNode<AnimationPlayer>("AnimationPlayer");
+        BlurAnimation = cameraFrame.GetNode<AnimationPlayer>("BlurAnimation");
+        blueLayer = cameraFrame.GetNode<CanvasLayer>("BlueLayer");
+        blueRect = blueLayer.GetNode<ColorRect>("BlueRect");
+        redLayer = cameraFrame.GetNode<CanvasLayer>("RedLayer");
+        redRect = redLayer.GetNode<ColorRect>("RedRect");
 
         camera = cameraPivot.GetNode<Camera3D>("Camera3D");
         initialCameraPosition = camera.Position;
@@ -144,11 +157,14 @@ public partial class Player : CharacterBody3D
 
         // Camera bobbing effect
         t_bob += dt * Velocity.Length() * (IsOnFloor() ? 1f : 0f);
-        if(!isCameraModeAnimationPlaying) camera.Transform = new Transform3D(camera.Transform.Basis, cameraBasePosition + _headBob(t_bob, defaultBobFrequency, bobAmplitude));
+        if(!isCameraModeActive) camera.Transform = new Transform3D(camera.Transform.Basis, cameraBasePosition + _headBob(t_bob, defaultBobFrequency, bobAmplitude)); //Prevents Bobbing in camera mode
+        else camera.Transform = new Transform3D(camera.Transform.Basis, cameraBasePosition);
 
         // FOV effect
-        currentFov = Mathf.Lerp(currentFov, isRunning ? runFov : defaultFov, 0.05f);
-        camera.Fov = currentFov;
+        if(!isCameraModeActive){
+            currentFov = Mathf.Lerp(currentFov, isRunning ? runFov : defaultFov, 0.05f);
+            camera.Fov = currentFov;
+        }
 
         // Handle animations
         PlayerState newState = GetPlayerState(_velocity);
@@ -209,17 +225,93 @@ public partial class Player : CharacterBody3D
                 frameAnimationPlayer.PlayBackwards("Off");
                 isFrameAnimationPlaying = true;
             }
+
+            //Take Screenshot
+            if(Input.IsActionJustPressed("take_screenshot"))
+            {
+                var playerCamera = camera as PlayerCamera;
+                _ = playerCamera.TakeScreenshot();
+            }
+            HandleCameraSetting();
         }
         else
         {
             if(isFrameAnimationPlaying)
             {
+                SwitchBackToDefaultCameraSetting();
                 frameAnimationPlayer.Play("Off");
                 isFrameAnimationPlaying = false;
             }
         }
 
         cameraBasePosition = cameraBasePosition.Lerp(target, 0.1f);
+    }
+
+    private void HandleCameraSetting()
+    {
+        switch (currentCameraSetting)
+        {
+            case CameraSettings.Zoom:
+                if(Input.IsActionJustPressed("WMU"))
+                {
+                   camera.Fov =  Mathf.Clamp(camera.Fov - scrollSensitivity, 30f, 100f);
+                   BlurAnimation.Play("Zoom_Blur");
+                }
+                else if(Input.IsActionJustPressed("WMD"))
+                {
+                   camera.Fov =  Mathf.Clamp(camera.Fov + scrollSensitivity, 30f, 100f);
+                    BlurAnimation.Play("Zoom_Blur");
+                }
+                else
+                {
+                    if(!BlurAnimation.IsPlaying()) BlurAnimation.PlayBackwards("Zoom_Blur_Out");
+                }
+                break;
+            
+            case CameraSettings.Warmth:
+                if(Input.IsActionJustPressed("WMU"))
+                {
+                    if(blueRect.Color.A == 0f)
+                    {
+                        Color targetColor = redRect.Color;
+                        targetColor.A = Mathf.Clamp(targetColor.A + 0.01f, 0f, 0.5f);
+                        redRect.Color = targetColor;
+                        return;
+                    }
+                    else
+                    {
+                        Color targetColor = blueRect.Color;
+                        targetColor.A = Mathf.Clamp(targetColor.A - 0.01f, 0f, 0.5f);
+                        blueRect.Color = targetColor;
+                        return;
+                    }
+                }
+                else if(Input.IsActionJustPressed("WMD"))
+                {
+                    if(redRect.Color.A == 0f)
+                    {
+                        Color targetColor = blueRect.Color;
+                        targetColor.A = Mathf.Clamp(targetColor.A + 0.01f, 0f, 0.5f);
+                        blueRect.Color = targetColor;
+                        return;
+                    }
+                    else
+                    {
+                        Color targetColor = redRect.Color;
+                        targetColor.A = Mathf.Clamp(targetColor.A - 0.01f, 0f, 0.5f);
+                        redRect.Color = targetColor;
+                        return;
+                    }
+                }
+                break;
+        }
+    }
+
+    private void SwitchBackToDefaultCameraSetting()
+    {
+        camera.Fov = defaultFov;
+        redRect.Color = new Color(redRect.Color.R, redRect.Color.G, redRect.Color.B, 0f);
+        blueRect.Color = new Color(blueRect.Color.R, blueRect.Color.G, blueRect.Color.B, 0f);
     }
 
     private void HandleAnimations(float dt)
