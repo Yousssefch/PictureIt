@@ -25,6 +25,8 @@ public partial class HomeScreen : Control
         gameController = GetNode<GameController>("/root/GameController");
         levelManager = gameController.GetNode<LevelManager>("Level");
 
+        network.FailedToJoinSession+= OnSessionNotAbleToJoin;
+
         //set z index of loading component to -1
         loadingComponentInvisible();
 
@@ -37,19 +39,19 @@ public partial class HomeScreen : Control
     {
         loadingComponentVisible();
         animationPlayer.Play("Loading");
+
         await ToSignal(animationPlayer, "animation_finished");
         network.CreateServer();
-        GD.Print("Hosting game...");
     }
     private async void OnPressJoinButton()
     {
         string oid = oidInput.Text;
-        GD.Print("Joining game with OID: " + oid);
         loadingComponentVisible();
+
         animationPlayer.Play("Loading");
         await ToSignal(animationPlayer, "animation_finished");
+
         network.CreateClient(oid);
-        GD.Print("Joining game...");
     }
 
     private void loadingComponentVisible()
@@ -97,12 +99,20 @@ public partial class HomeScreen : Control
         AnimationPlayer.SignalName.AnimationFinished
     );
 
-        animationPlayer.Play("Transition");
+        float animationSpeed = 1.5f;
+        animationPlayer.Play("Transition", customSpeed: animationSpeed);
         await ToSignal(
         animationPlayer,
         AnimationPlayer.SignalName.AnimationFinished
         );
         
+    }
+
+    private void OnSessionNotAbleToJoin()
+    {
+        loadingComponentInvisible();
+        animationPlayer.PlayBackwards("Loading");
+        gameController.ShowNotice("Failed to join session.");
     }
 
 

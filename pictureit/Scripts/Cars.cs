@@ -24,13 +24,10 @@ public partial class Cars : CharacterBody3D
     override public void _Process(double delta)
     {
         currentTargetPosition.Y = this.Position.Y; // Keep target position at the same height as the car
-        GD.Print("Car Position: " + this.Position);
-        GD.Print("Current Target Position: " + currentTargetPosition);
         if(targetPositionsCount == 0) return; // No target positions defined
 
         // Move towards the current target position
         Vector3 directionToTarget = (currentTargetPosition - this.Position).Normalized();
-        GD.Print("Direction to Target: " + directionToTarget);
         directionToTarget.Y = 0; // Keep movement in the horizontal plane
 
         //Calculate Distance to target

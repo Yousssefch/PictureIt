@@ -22,9 +22,6 @@ public partial class Player : CharacterBody3D
     //camera variables
 
     //Bob Effect
-    [Export] float defaultBobFrequency = 2.0f;
-    [Export] float bobAmplitude = 0.05f;
-    [Export] float t_bob = 0.0f;
     
     //FOV Effect
     [Export] float defaultFov = 65.0f;
@@ -94,7 +91,6 @@ public partial class Player : CharacterBody3D
 
         camera = cameraPivot.GetNode<Camera3D>("Camera3D");
         initialCameraPosition = camera.Position;
-        cameraBasePosition = camera.Position;
         camera.Current = true;
         SetPhysicsProcess(true); 
         GD.Print("Mc._Ready: script attached — ready and physics process enabled");
@@ -137,6 +133,7 @@ public partial class Player : CharacterBody3D
 
         // Handle input
         Vector2 input = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
+        isCameraModeActive = Input.IsActionPressed("camera_mode");
         Vector3 direction = (cameraPivot.Transform.Basis * new Vector3(input.X, 0, input.Y)).Normalized();
         bool isRunning = Input.IsActionPressed("run") && !isCameraModeActive;
         bool space = Input.IsKeyPressed(Key.Space);
@@ -153,12 +150,6 @@ public partial class Player : CharacterBody3D
         else _velocity.Y -= Gravity * dt;
 
         Velocity = _velocity;
-        
-
-        // Camera bobbing effect
-        t_bob += dt * Velocity.Length() * (IsOnFloor() ? 1f : 0f);
-        if(!isCameraModeActive) camera.Transform = new Transform3D(camera.Transform.Basis, cameraBasePosition + _headBob(t_bob, defaultBobFrequency, bobAmplitude)); //Prevents Bobbing in camera mode
-        else camera.Transform = new Transform3D(camera.Transform.Basis, cameraBasePosition);
 
         // FOV effect
         if(!isCameraModeActive){
@@ -175,7 +166,10 @@ public partial class Player : CharacterBody3D
         }
 
         //All Others features
-        CameraMode();
+        if(isCameraModeActive)
+        {
+            currentSpeedMultiplier = defaultSpeedMultiplier / playerSpeedDivisorInCameraMode;
+        }
 
         //End Physics Process
         MoveAndSlide();
@@ -187,13 +181,6 @@ public partial class Player : CharacterBody3D
     {
         GD.Print($"Updating player state to: {(PlayerState)state}");
         this.currentState =  (PlayerState)state; //Change state on all peers
-    }
-
-    private Vector3 _headBob(float t, float frequency, float amplitude)
-    {
-        Vector3 pos = Vector3.Zero;
-        pos.Y += Mathf.Sin(t * frequency) * amplitude;
-        return pos;
     }
 
     private PlayerState GetPlayerState(Vector3 velocity)
@@ -209,110 +196,6 @@ public partial class Player : CharacterBody3D
         return PlayerState.Idle;
     }
 
-    private void CameraMode()
-    {
-        isCameraModeActive = Input.IsActionPressed("camera_mode");
-
-        Vector3 target = initialCameraPosition;
-
-        if (isCameraModeActive)
-        {
-            target.Y -= targetCameraYPositionOffset;
-            target.Z -= targetCameraZPositionOffset;
-            currentSpeedMultiplier = defaultSpeedMultiplier / playerSpeedDivisorInCameraMode;
-            if(!isFrameAnimationPlaying)
-            {
-                frameAnimationPlayer.PlayBackwards("Off");
-                isFrameAnimationPlaying = true;
-            }
-
-            //Take Screenshot
-            if(Input.IsActionJustPressed("take_screenshot"))
-            {
-                var playerCamera = camera as PlayerCamera;
-                _ = playerCamera.TakeScreenshot();
-            }
-            HandleCameraSetting();
-        }
-        else
-        {
-            if(isFrameAnimationPlaying)
-            {
-                SwitchBackToDefaultCameraSetting();
-                frameAnimationPlayer.Play("Off");
-                isFrameAnimationPlaying = false;
-            }
-        }
-
-        cameraBasePosition = cameraBasePosition.Lerp(target, 0.1f);
-    }
-
-    private void HandleCameraSetting()
-    {
-        switch (currentCameraSetting)
-        {
-            case CameraSettings.Zoom:
-                if(Input.IsActionJustPressed("WMU"))
-                {
-                   camera.Fov =  Mathf.Clamp(camera.Fov - scrollSensitivity, 30f, 100f);
-                   BlurAnimation.Play("Zoom_Blur");
-                }
-                else if(Input.IsActionJustPressed("WMD"))
-                {
-                   camera.Fov =  Mathf.Clamp(camera.Fov + scrollSensitivity, 30f, 100f);
-                    BlurAnimation.Play("Zoom_Blur");
-                }
-                else
-                {
-                    if(!BlurAnimation.IsPlaying()) BlurAnimation.PlayBackwards("Zoom_Blur_Out");
-                }
-                break;
-            
-            case CameraSettings.Warmth:
-                if(Input.IsActionJustPressed("WMU"))
-                {
-                    if(blueRect.Color.A == 0f)
-                    {
-                        Color targetColor = redRect.Color;
-                        targetColor.A = Mathf.Clamp(targetColor.A + 0.01f, 0f, 0.5f);
-                        redRect.Color = targetColor;
-                        return;
-                    }
-                    else
-                    {
-                        Color targetColor = blueRect.Color;
-                        targetColor.A = Mathf.Clamp(targetColor.A - 0.01f, 0f, 0.5f);
-                        blueRect.Color = targetColor;
-                        return;
-                    }
-                }
-                else if(Input.IsActionJustPressed("WMD"))
-                {
-                    if(redRect.Color.A == 0f)
-                    {
-                        Color targetColor = blueRect.Color;
-                        targetColor.A = Mathf.Clamp(targetColor.A + 0.01f, 0f, 0.5f);
-                        blueRect.Color = targetColor;
-                        return;
-                    }
-                    else
-                    {
-                        Color targetColor = redRect.Color;
-                        targetColor.A = Mathf.Clamp(targetColor.A - 0.01f, 0f, 0.5f);
-                        redRect.Color = targetColor;
-                        return;
-                    }
-                }
-                break;
-        }
-    }
-
-    private void SwitchBackToDefaultCameraSetting()
-    {
-        camera.Fov = defaultFov;
-        redRect.Color = new Color(redRect.Color.R, redRect.Color.G, redRect.Color.B, 0f);
-        blueRect.Color = new Color(blueRect.Color.R, blueRect.Color.G, blueRect.Color.B, 0f);
-    }
 
     private void HandleAnimations(float dt)
     {

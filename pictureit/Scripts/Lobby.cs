@@ -23,24 +23,25 @@ public partial class Lobby : Control
         if(Multiplayer.IsServer())
         {
             animationPlayer.Play("Init");
+            this.UpdateRoomIDLabel();
         }
         else
         {
-            this.Visible = false;
-            canvasLayer.Visible = false;
+            this.ToggleVisibility(false);
             levelManager.OnReadyToDisposeLevel += LevelReadyToDispose;
         }
-
-        string sessionId = network.GetSessionId();
-        roomIDLabel.Text = "Room ID: " + sessionId;
     }
 
     private void LevelReadyToDispose()
     {
         GD.Print("Lobby notified that previous level is ready to be disposed.");
-        this.Visible = true;
-        canvasLayer.Visible = true;
-        animationPlayer.Play("Init");
+        
+        //Client in the scene
+        this.ToggleVisibility(true);
+        this.UpdateRoomIDLabel();
+
+        float animationSpeed = 1.5f;
+        animationPlayer.Play("Init", customBlend: animationSpeed);
     }
 
     private async void OnStartButtonPressed()
@@ -55,5 +56,17 @@ public partial class Lobby : Control
     public async Task RpcStartGame()
     {
         await gameController.LoadLevel(GameController.Levels.Game);
+    }
+
+    private void ToggleVisibility(bool isVisible)
+    {
+        this.Visible = isVisible;
+        canvasLayer.Visible = isVisible;
+    }
+
+    private void UpdateRoomIDLabel()
+    {
+        string sessionId = network.GetSessionId();
+        roomIDLabel.Text = "Room ID: " + sessionId;
     }
 }

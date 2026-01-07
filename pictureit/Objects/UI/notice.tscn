@@ -1,0 +1,308 @@
+[gd_scene load_steps=14 format=3 uid="uid://nblnaw6ig4ip"]
+
+[ext_resource type="Script" uid="uid://by45oa2ahuuiy" path="res://Scripts/Notice.cs" id="1_1pk8e"]
+[ext_resource type="Texture2D" uid="uid://hopa5v1ieql3" path="res://Assets/UI/Notice.svg" id="1_3wtdw"]
+[ext_resource type="Shader" uid="uid://db3oyd88vdcu1" path="res://Shaders/transition.gdshader" id="1_fjwoe"]
+[ext_resource type="FontFile" uid="uid://dwxe74i1oxqla" path="res://Assets/Fonts/supply-center/Supply Center.otf" id="2_ain1u"]
+[ext_resource type="FontFile" uid="uid://ym25t5faam2l" path="res://Assets/Fonts/Poppins/Poppins-Italic.ttf" id="3_ain1u"]
+[ext_resource type="Texture2D" uid="uid://spb1kim2xgyl" path="res://Assets/UI/CloseButton.png" id="4_k7wei"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7wei"]
+shader = ExtResource("1_fjwoe")
+shader_parameter/use_sprite_alpha = true
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 0
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(16, 9)
+shader_parameter/rotation_angle = 0.0
+shader_parameter/stagger = Vector2(0, 0)
+shader_parameter/stagger_frequency = Vector2i(2, 2)
+shader_parameter/flip_frequency = Vector2i(1, 1)
+shader_parameter/basic_feather = 0.0
+shader_parameter/use_mask_size = false
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 6
+shader_parameter/shape_feather = 0.1
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress = 25.01
+shader_parameter/progress_bias = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wtdw"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+border_width_bottom = 8
+border_color = Color(0.0453124, 0.0453124, 0.0453124, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjwoe"]
+bg_color = Color(0.580392, 0.129412, 0.109804, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.438013, 0.0875957, 0.0724888, 1)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="Animation" id="Animation_1pk8e"]
+resource_name = "OnClose"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(4.92457),
+"update": 0,
+"values": [Vector2(289, 210)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(11.3137),
+"update": 0,
+"values": [Vector2(431.5, 219)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PanelContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.466667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.803922), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Transition:material:shader_parameter/progress")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0266667, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.78, 100.0]
+}
+
+[sub_resource type="Animation" id="Animation_ain1u"]
+resource_name = "OnEnter"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.566667),
+"transitions": PackedFloat32Array(4.92457),
+"update": 0,
+"values": [Vector2(289, 210)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.566667),
+"transitions": PackedFloat32Array(11.3137),
+"update": 0,
+"values": [Vector2(431.5, 219)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PanelContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.566667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.803922)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Transition:material:shader_parameter/progress")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.36),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [25.01, -0.78]
+}
+
+[sub_resource type="Animation" id="Animation_fjwoe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(300, 200)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(456, 241.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PanelContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Transition:material:shader_parameter/progress")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [25.01]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k7wei"]
+_data = {
+&"OnClose": SubResource("Animation_1pk8e"),
+&"OnEnter": SubResource("Animation_ain1u"),
+&"RESET": SubResource("Animation_fjwoe")
+}
+
+[node name="Notice" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_1pk8e")
+
+[node name="Transition" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_k7wei")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.529412)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+z_index = 5
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.5
+offset_top = -105.0
+offset_right = 144.5
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3wtdw")
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fjwoe")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+texture = ExtResource("1_3wtdw")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="PanelContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ain1u")
+text = "Notice"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/PanelContainer/MarginContainer2"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/PanelContainer/MarginContainer2/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/PanelContainer/MarginContainer2/PanelContainer2/MarginContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_k7wei")
+texture_pressed = ExtResource("4_k7wei")
+texture_hover = ExtResource("4_k7wei")
+texture_disabled = ExtResource("4_k7wei")
+texture_focused = ExtResource("4_k7wei")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="MessageLabel" type="Label" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_ain1u")
+theme_override_font_sizes/font_size = 10
+text = "Message"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_k7wei")
+}
+autoplay = "OnEnter"
+
+[connection signal="pressed" from="PanelContainer/PanelContainer/MarginContainer2/PanelContainer2/MarginContainer/TextureButton" to="." method="OnCloseButtonPressed"]

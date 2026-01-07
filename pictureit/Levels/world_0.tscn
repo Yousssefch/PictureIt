@@ -4489,8 +4489,8 @@ shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_intensity = 10.0
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.639151, 0.957857)
-shader_parameter/cirrus_position2 = Vector2(0.639151, 0.957857)
+shader_parameter/cirrus_position1 = Vector2(0.0425526, 0.0661169)
+shader_parameter/cirrus_position2 = Vector2(0.0425526, 0.0661169)
 shader_parameter/cirrus_day_color = Color(0.824, 0.875, 1, 1)
 shader_parameter/cirrus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
 shader_parameter/cirrus_night_color = Color(0.09, 0.094, 0.129, 1)
@@ -4503,7 +4503,7 @@ shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_intensity = 0.6
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(138.504, 79.8672)
+shader_parameter/cumulus_position = Vector2(35.2083, 20.3242)
 shader_parameter/cumulus_texture = ExtResource("3_63xdh")
 shader_parameter/cumulus_day_color = Color(0.823529, 0.87451, 1, 1)
 shader_parameter/cumulus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
@@ -5043,7 +5043,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4, 0,
 transform = Transform3D(0.0214669, 0, -1.49985, 0, 1.5, 0, 1.49985, 0, 0.0214669, 9.98206, 0, -13.405)
 
 [node name="building_H_withoutBase" parent="Map/House" instance=ExtResource("10_ik4d0")]
-transform = Transform3D(-6.55671e-08, 0, -1, 0, 1.5, 0, 1.5, 0, -4.37114e-08, 10, 0, 0)
+transform = Transform3D(-6.55671e-08, 0, -1, 0, 1.5, 0, 1.5, 0, -4.37114e-08, 10, -0.0522388, 0)
 
 [node name="building_H_withoutBase3" parent="Map/House" instance=ExtResource("10_ik4d0")]
 transform = Transform3D(1.49616, 0, -0.0714974, 0, 1.5, 0, 0.107246, 0, 0.997441, 2.21648, 0, -20.1834)
