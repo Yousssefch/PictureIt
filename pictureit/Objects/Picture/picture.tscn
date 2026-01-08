@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4ee0teq6pdqu"]
+[gd_scene load_steps=7 format=3 uid="uid://d4ee0teq6pdqu"]
 
 [ext_resource type="Script" uid="uid://blakxbl4owuv8" path="res://Scripts/Picture.cs" id="1_qkj35"]
 
@@ -12,6 +12,58 @@ border_color = Color(1, 1, 1, 1)
 shadow_color = Color(0, 0, 0, 0.376471)
 shadow_size = 2
 shadow_offset = Vector2(1, 0)
+
+[sub_resource type="Animation" id="Animation_am76f"]
+resource_name = "OnEvaluate"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.508493),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:custom_minimum_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(300, 200), Vector2(180, 130), Vector2(150, 100)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(426, 224), Vector2(486, 259), Vector2(501, 274)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(150, 100)]
+}
 
 [sub_resource type="Animation" id="Animation_qkj35"]
 resource_name = "OnTakePhoto"
@@ -40,6 +92,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(501, 663), Vector2(501, 548), Vector2(501, 529), Vector2(501, 529), Vector2(-165, 529)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:custom_minimum_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(150, 100)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(150, 100)]
+}
 
 [sub_resource type="Animation" id="Animation_76alk"]
 length = 0.001
@@ -67,26 +143,51 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(501, 548)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:custom_minimum_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(150, 100)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(150, 100)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_avjgy"]
 _data = {
+&"OnEvaluate": SubResource("Animation_am76f"),
 &"OnTakePhoto": SubResource("Animation_qkj35"),
 &"RESET": SubResource("Animation_76alk")
 }
 
 [node name="Picture" type="PanelContainer"]
 custom_minimum_size = Vector2(150, 100)
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -75.0
-offset_top = 15.0
-offset_right = 75.0
-offset_bottom = 115.0
+anchor_bottom = 0.5
+offset_left = -248.47
+offset_top = -163.691
+offset_right = 51.5303
+offset_bottom = 36.3094
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_1j5d7")
 script = ExtResource("1_qkj35")

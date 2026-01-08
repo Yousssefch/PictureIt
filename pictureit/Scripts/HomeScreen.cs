@@ -6,7 +6,7 @@ public partial class HomeScreen : Control
 {
     private NetworkHandler network;
     private LineEdit oidInput;
-    private ColorRect transition;
+    private Godot.TextureRect transition;
     private ColorRect blur;
     private ColorRect transparent;
     private Label loading;
@@ -17,7 +17,7 @@ public partial class HomeScreen : Control
     {
         network = GetNode<NetworkHandler>("/root/NetworkHandler");
         oidInput = GetNode<LineEdit>("CanvasLayer/VBoxContainer/HBoxContainer/OIDInput");
-        transition = GetNode<ColorRect>("CanvasLayer/Transition");
+        transition = GetNode<Godot.TextureRect>("CanvasLayer/Transition");
         blur = GetNode<ColorRect>("CanvasLayer/Blur");
         loading = GetNode<Label>("CanvasLayer/Loading");
         transparent = GetNode<ColorRect>("CanvasLayer/Transparent");

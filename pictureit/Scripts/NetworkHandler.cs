@@ -127,5 +127,14 @@ public partial class NetworkHandler : Node
     {
         OnFailedToJoinSession();
     }
+
+    public bool IsServer()
+    {
+        if (HasNode("tube_server"))
+        {
+            return true;
+        }
+        return false;
+    }
  
 }

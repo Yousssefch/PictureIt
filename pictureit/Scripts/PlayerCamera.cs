@@ -42,6 +42,12 @@ public partial class PlayerCamera : Camera3D
     private Godot.Collections.Array<Picture> pictures = new Godot.Collections.Array<Picture>();
     private GameController gameController;
 
+    public override void _EnterTree()
+    {
+        Player player = GetParent().GetParent<Player>();
+        SetMultiplayerAuthority(int.Parse(player.Name));
+    }
+
     public override void _Ready()
     {
         DirAccess  dir = DirAccess.Open("res://Screenshots");
@@ -69,6 +75,8 @@ public partial class PlayerCamera : Camera3D
 
     public override void _Process(double delta)
     {
+        if(!IsMultiplayerAuthority()) return;
+        
         if(!isCameraModeActive) Transform = new Transform3D(Transform.Basis, cameraBasePosition + _headBob(t_bob, defaultBobFrequency, bobAmplitude)); //Prevents Bobbing in camera mode
         else Transform = new Transform3D(Transform.Basis, cameraBasePosition);
 

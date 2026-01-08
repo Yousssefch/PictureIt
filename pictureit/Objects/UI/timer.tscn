@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cokjugwfmg88o"]
+
+[ext_resource type="Texture2D" uid="uid://bygn3f0ii41f1" path="res://Assets/UI/Timer/Outline.png" id="1_hm1sa"]
+[ext_resource type="Script" uid="uid://k30epfh3qqow" path="res://Scripts/TimerUI.cs" id="1_vc3n4"]
+[ext_resource type="Texture2D" uid="uid://d4nttelfwe5jj" path="res://Assets/UI/Timer/Fill.png" id="2_vc3n4"]
+[ext_resource type="FontFile" uid="uid://c2id15ny4hhv2" path="res://Assets/Fonts/Poppins/Poppins-Black.ttf" id="3_uksvq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vitk8"]
+
+[node name="Timer" type="PanelContainer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -122.0
+offset_top = 13.0
+offset_right = 804.0
+offset_bottom = 513.0
+grow_horizontal = 0
+scale = Vector2(0.1, 0.1)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vitk8")
+script = ExtResource("1_vc3n4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HBoxContainer"]
+layout_mode = 2
+value = 20.0
+fill_mode = 4
+texture_under = ExtResource("1_hm1sa")
+texture_progress = ExtResource("2_vc3n4")
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_uksvq")
+theme_override_font_sizes/font_size = 150
+text = "99:99"

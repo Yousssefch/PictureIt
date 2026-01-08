@@ -110,7 +110,6 @@ public partial class GameController : Node
         Texture2D tex = imgTexture;
         picture.image = tex;
         AddPicture(player_id, picture);
-
         picture.setTexture(tex);
         picture.SetMetadata(position, rotation, fov, warmth);
         
