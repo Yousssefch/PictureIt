@@ -140,12 +140,12 @@ public partial class GameController : Node
     }
 
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
-    public void SendPictureToOtherPeers(byte[] imageData, Vector3 position, Vector3 rotation, float fov, float warmth, int player_id)
+    public void SendPictureToOtherPeers(byte[] imageData, Vector3 position, Vector3 rotation, float fov, float warmth, int player_id, Godot.Collections.Dictionary<string, Vector3> referenceMetadata)
     {
         GD.Print("Received picture from player ID: " + player_id);
         Image img = new Image();
         img.LoadPngFromBuffer(imageData);
-        CreatePicture(img, position, rotation, fov, warmth, player_id);
+        CreatePicture(img, position, rotation, fov, warmth, player_id, referenceMetadata);
     }
 
     public void ShowNotice(string message)
@@ -155,20 +155,38 @@ public partial class GameController : Node
         AddChild(noticeInstance);
     }
 
-    public void CreatePicture(Image texture, Vector3 position, Vector3 rotation, float fov, float warmth, int player_id, bool saveToReferences = false)
+    public void CreatePicture(Image texture, Vector3 position, Vector3 rotation, float fov, float warmth, int player_id, Godot.Collections.Dictionary<string, Vector3> referenceMetadata, bool saveToReferences = false)
     {
         Picture picture = pictureScene.Instantiate<Picture>();
         ImageTexture imgTexture = ImageTexture.CreateFromImage(texture);
         Texture2D tex = imgTexture;
         picture.image = tex;
         byte[] imgData = texture.SavePngToBuffer();
+
+        //Debug: Show all reference metadata
+
+        
         AddPicture(player_id, picture);
         picture.setTexture(tex);
-        picture.SetMetadata(position, rotation, fov, warmth);
+
+
+        Godot.Collections.Dictionary<string, Vector3> metadata = new Godot.Collections.Dictionary<string, Vector3>();
+        metadata["position"] = position;
+        metadata["rotation"] = rotation;
+        metadata["fov"] = new Vector3(fov, 0, 0);
+        metadata["warmth"] = new Vector3(warmth, 0, 0);
+        picture.SetMetadata(metadata);
+
         if(saveToReferences)
         {
+            GD.Print("Saving picture to references for player ID: " + player_id);
             AddPictureToReferences(picture);
+            return;
         }
+
+        picture.SetReferenceMetadata(referenceMetadata);
+        picture.CalculateScoreBasedOnMetadata();
+        
     }
 
     public void AddPictureToReferences(Picture picture)
@@ -178,7 +196,8 @@ public partial class GameController : Node
         {
             string filePath = "res://References/picture_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".tscn";
             PackedScene packedScene = new PackedScene();
-            Node pictureNode = picture.Duplicate();
+            Picture pictureNode = picture.Duplicate() as Picture;
+            pictureNode.SetMetadata(picture.GetMetadata());
             packedScene.Pack(pictureNode);
             ResourceSaver.Save(packedScene, filePath);
             

@@ -15,8 +15,8 @@ public partial class Result : Control
         gameController = GetNode<GameController>("/root/GameController");
         Pictures = gameController.GetNode("Pictures");
         playerScore = GetNode<PanelContainer>("CanvasLayer/PlayerScore");
-        playerLobby = playerScore.GetNode<PlayerLobby>("PlayerLobby");
-        scoreLabel = playerScore.GetNode<Label>("ScoreLabel");
+        playerLobby = playerScore.GetNode<PlayerLobby>("VBoxContainer/PlayerLobby");
+        scoreLabel = playerScore.GetNode<Label>("VBoxContainer/ScoreLabel");
 
         ResultAnimation();
     }

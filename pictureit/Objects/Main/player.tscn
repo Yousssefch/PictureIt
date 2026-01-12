@@ -27,6 +27,7 @@ script = ExtResource("1_flwfh")
 Speed = 16.0
 JumpVelocity = 6.0
 Gravity = 15.0
+Debug = true
 RunningSpeedMultiplier = 1.3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -48,7 +49,7 @@ zoomIcon = ExtResource("3_73585")
 warmthIcon = ExtResource("4_uneuj")
 blurIcon = ExtResource("5_fcdbd")
 pictureScene = ExtResource("5_uneuj")
-isDebugSaveReferences = true
+maxPictures = 2
 
 [node name="BlurRange" type="RayCast3D" parent="CameraPivot/Camera3D"]
 

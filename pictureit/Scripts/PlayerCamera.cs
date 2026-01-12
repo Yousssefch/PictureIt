@@ -138,10 +138,11 @@ public partial class PlayerCamera : Camera3D
         float fov = this.Fov;
         float warmth = redRect.Color.A - blueRect.Color.A;
         int player_id = GetMultiplayerAuthority();
+        Godot.Collections.Dictionary<string, Vector3> referenceMetadata = levelController.GetCurrentReferencePictureMetaData();
 
         levelController.UpdateObjectives();
 
-        Rpc(MethodName.ReceivePicture, imageData, position, rotation, fov, warmth, player_id, isDebugSaveReferences ? true : false);
+        Rpc(MethodName.ReceivePicture, imageData, position, rotation, fov, warmth, player_id, referenceMetadata, isDebugSaveReferences);
 
 
         frameAnimationPlayer.Play("TakePictureEnd");
@@ -151,11 +152,11 @@ public partial class PlayerCamera : Camera3D
         ssCounter++;
     }
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
-    public void ReceivePicture(byte[] imageData, Vector3 position, Vector3 rotation, float fov, float warmth, int player_id, bool saveToReferences = false)
+    public void ReceivePicture(byte[] imageData, Vector3 position, Vector3 rotation, float fov, float warmth, int player_id, Godot.Collections.Dictionary<string, Vector3> referenceMetadata ,bool saveToReferences = false)
     {
         Image img = new Image();
         img.LoadPngFromBuffer(imageData);
-        gameController.CreatePicture(img, position, rotation, fov, warmth, player_id, saveToReferences);
+        gameController.CreatePicture(img, position, rotation, fov, warmth, player_id,referenceMetadata, saveToReferences);
     }
 
     private void CameraModeLoop()

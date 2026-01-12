@@ -62,6 +62,7 @@ public partial class Objectives : PanelContainer
 
     public Godot.Collections.Dictionary<string, Vector3> GetCurrentReferencePictureMetaData()
     {
+        GD.Print("Getting metadata for picture index: ", currentPictureIndex - 1 );
         Picture pic = selectedReferencePictures[currentPictureIndex - 1];
         return pic.GetMetadata();
     }

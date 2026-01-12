@@ -14,7 +14,7 @@ public partial class Picture : PanelContainer
     private Godot.TextureRect pictureTextureRect;
     private AnimationPlayer animationPlayer;
     [Export] public Texture2D image;
-    private Godot.Collections.Dictionary<string, Vector3> metadata = new Godot.Collections.Dictionary<string, Vector3>();
+    [Export] private Godot.Collections.Dictionary<string, Vector3> metadata = new Godot.Collections.Dictionary<string, Vector3>();
     private Godot.Collections.Dictionary<string, Vector3> referenceMetadata = new Godot.Collections.Dictionary<string, Vector3>();
     
     public override void _Ready()
@@ -29,19 +29,13 @@ public partial class Picture : PanelContainer
         pictureTextureRect.Texture = texture;
     }
 
-    public void SetMetadata(Vector3 position, Vector3 rotation, float fov, float warmth)
+    public void SetMetadata(Godot.Collections.Dictionary<string, Vector3> metadata)
     {
-        playerPosition = position;
-        playerRotation = rotation;
-        cameraFov = fov;
-        warmthLevel = warmth;
-        metadata = new Godot.Collections.Dictionary<string, Vector3>
-        {
-           {"position", position   },
-           {"rotation", rotation},
-           {"fov", new Vector3(fov, 0, 0)},
-           {"warmth", new Vector3(warmth, 0, 0)}
-        };
+        this.metadata = metadata;
+        playerPosition = metadata["position"];
+        playerRotation = metadata["rotation"];
+        cameraFov = metadata["fov"].X;
+        warmthLevel = metadata["warmth"].X;
     }
 
     public Godot.Collections.Dictionary<string, Vector3> GetMetadata()
@@ -49,16 +43,11 @@ public partial class Picture : PanelContainer
         return metadata;
     }
 
-    public void SetReferenceMetadata(Vector3 position, Vector3 rotation, float fov, float warmth)
+    public void SetReferenceMetadata(Godot.Collections.Dictionary<string, Vector3> referenceMetadata)
     {
-        referenceMetadata = new Godot.Collections.Dictionary<string, Vector3>
-        {
-            {"position", position   },
-            {"rotation", rotation},
-            {"fov", new Vector3(fov, 0, 0)},
-            {"warmth", new Vector3(warmth, 0, 0)}
-        };
+        this.referenceMetadata = referenceMetadata;
     }
+
     public void CalculateScoreBasedOnMetadata()
     {
 
