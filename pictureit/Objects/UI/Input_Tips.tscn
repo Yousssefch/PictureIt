@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://cnnnm6ph3ppb5"]
+
+[ext_resource type="Texture2D" uid="uid://cmnvi4xfgj537" path="res://Assets/Keyboard & Mouse/Vector/mouse_right.svg" id="1_ng1oq"]
+[ext_resource type="Texture2D" uid="uid://dwwi58dd7mgo2" path="res://Assets/Keyboard & Mouse/Vector/mouse_scroll.svg" id="2_u168p"]
+[ext_resource type="Texture2D" uid="uid://udyx74aoquqk" path="res://Assets/Keyboard & Mouse/Vector/mouse_left.svg" id="3_mf03w"]
+[ext_resource type="Texture2D" uid="uid://ciw0hkpx6xcji" path="res://Assets/Keyboard & Mouse/Vector/keyboard_shift.svg" id="4_ejjry"]
+[ext_resource type="Texture2D" uid="uid://b0jl3t57gyu8d" path="res://Assets/Keyboard & Mouse/Vector/keyboard_space_icon.svg" id="5_m2wy0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vmjl8"]
+
+[node name="Input" type="PanelContainer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -168.0
+offset_top = -65.5
+offset_bottom = 65.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vmjl8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Camera" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Camera"]
+layout_mode = 2
+texture = ExtResource("1_ng1oq")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/Camera"]
+layout_mode = 2
+text = "Camera"
+
+[node name="Zoom_Focus_Filter" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Zoom_Focus_Filter"]
+layout_mode = 2
+texture = ExtResource("2_u168p")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/Zoom_Focus_Filter"]
+layout_mode = 2
+text = "Zoom/Focus/Filter"
+
+[node name="Picture" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Picture"]
+layout_mode = 2
+texture = ExtResource("3_mf03w")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/Picture"]
+layout_mode = 2
+text = "Take Picture"
+
+[node name="Run" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Run"]
+layout_mode = 2
+texture = ExtResource("4_ejjry")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/Run"]
+layout_mode = 2
+text = "Run"
+
+[node name="Jump" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Jump"]
+layout_mode = 2
+texture = ExtResource("5_m2wy0")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/Jump"]
+layout_mode = 2
+text = "Jump"

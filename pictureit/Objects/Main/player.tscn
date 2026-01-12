@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dyotkmkdvt1gh"]
+[gd_scene load_steps=12 format=3 uid="uid://dyotkmkdvt1gh"]
 
 [ext_resource type="Script" uid="uid://bu1whp36utcsj" path="res://Scripts/Player.cs" id="1_flwfh"]
 [ext_resource type="Script" uid="uid://dbd4txw3a73j0" path="res://Scripts/PlayerCamera.cs" id="2_avoo8"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://bb7r00uq2ytrp" path="res://Objects/Main/CameraFrame.tscn" id="3_40jbd"]
 [ext_resource type="Texture2D" uid="uid://5yheiku3mpv7" path="res://Assets/Camera/Camera Icons/Zoom.png" id="3_73585"]
 [ext_resource type="Texture2D" uid="uid://bd3jnghpg2l5b" path="res://Assets/Camera/Camera Icons/Filter.png" id="4_uneuj"]
+[ext_resource type="Texture2D" uid="uid://do171xo6qolxt" path="res://Assets/Camera/Camera Icons/Blur.png" id="5_fcdbd"]
 [ext_resource type="PackedScene" uid="uid://d4ee0teq6pdqu" path="res://Objects/Picture/picture.tscn" id="5_uneuj"]
+[ext_resource type="PackedScene" uid="uid://creh5vljtyo0w" path="res://Assets/Camera/3D model/scene.gltf" id="9_fnrwy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_flwfh"]
 size = Vector3(0.586075, 1.17766, 0.592041)
@@ -40,12 +42,24 @@ cull_mask = 1048573
 fov = 65.0
 far = 5000.0
 script = ExtResource("2_avoo8")
+defaultBobFrequency = 3.0
+bobAmplitude = 0.06
 zoomIcon = ExtResource("3_73585")
 warmthIcon = ExtResource("4_uneuj")
+blurIcon = ExtResource("5_fcdbd")
 pictureScene = ExtResource("5_uneuj")
+isDebugSaveReferences = true
+
+[node name="BlurRange" type="RayCast3D" parent="CameraPivot/Camera3D"]
 
 [node name="Cat" parent="CameraPivot" instance=ExtResource("2_bkre6")]
 transform = Transform3D(-0.4, 0, -3.49691e-08, 0, 0.4, 0, 3.49691e-08, 0, -0.4, 0, -0.743872, 0)
+
+[node name="CameraGUI" type="Node3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.743872, 0)
+
+[node name="Cam" parent="CameraPivot/CameraGUI" instance=ExtResource("9_fnrwy")]
+transform = Transform3D(-0.6, 0, 5.24537e-08, 0, 0.6, 0, -5.24537e-08, 0, -0.6, 0.661498, 0.736823, -0.837446)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_bkre6")

@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://dt0qvd1062s36"]
+
+[ext_resource type="Script" uid="uid://dlafpm41pfukv" path="res://Scripts/Objectives.cs" id="1_hq426"]
+[ext_resource type="PackedScene" uid="uid://hccws6a0xwu3" path="res://References/picture_20260111_201258.tscn" id="2_x166e"]
+[ext_resource type="PackedScene" path="res://References/picture_20260111_201240.tscn" id="3_fnaac"]
+[ext_resource type="FontFile" uid="uid://c2id15ny4hhv2" path="res://Assets/Fonts/Poppins/Poppins-Black.ttf" id="3_m37au"]
+[ext_resource type="FontFile" uid="uid://cmicxh0kinglh" path="res://Assets/Fonts/Poppins/Poppins-Light.ttf" id="4_fnaac"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oj8hs"]
+
+[node name="Objectives" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_oj8hs")
+script = ExtResource("1_hq426")
+referencePictures = Array[PackedScene]([ExtResource("2_x166e"), ExtResource("3_fnaac")])
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_m37au")
+text = "Objective:"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_fnaac")
+theme_override_font_sizes/font_size = 10
+text = "Take a picture according to the selected reference"
+
+[node name="ReferencePictureContainer" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2

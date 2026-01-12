@@ -13,6 +13,7 @@ public partial class HomeScreen : Control
     AnimationPlayer animationPlayer;
     GameController gameController;
     LevelManager levelManager;
+    [Export] private PackedScene enterNameScene;
     public override void _Ready()
     {
         network = GetNode<NetworkHandler>("/root/NetworkHandler");
@@ -72,32 +73,59 @@ public partial class HomeScreen : Control
 
     private async void OnSessionCreated(string sessionId)
     {
-        await ExitAnimation();
-        if(Multiplayer.IsServer())
-        {
-            await gameController.LoadLevel(GameController.Levels.Lobby);
-            levelManager.NotifyReadyToDisposeLevel();
-        }
+        await EndLoadingAnimation();
+
+        //Add enter name screen
+        AddEnterNameScreen();
     }
 
     private async void OnSessionJoined()
     {
         string oid = oidInput.Text;
         network.SetSessionId(oid);
-        await ExitAnimation();
-        levelManager.NotifyReadyToDisposeLevel();
-        gameController.ClearLevel(GameController.Levels.HomeScreen);
-
+        await EndLoadingAnimation();
+        AddEnterNameScreen();
     }
 
-    private async Task ExitAnimation()
+    private void AddEnterNameScreen()
     {
-        animationPlayer.Stop();
+        //Add enter name screen
+        CanvasLayer enterNameControl = enterNameScene.Instantiate<CanvasLayer>();
+        AddChild(enterNameControl);
+
+        Button submitButton = enterNameControl.GetNode<Button>("VBoxContainer/InputPanel/VBoxContainer/Button");
+        LineEdit nameinput = enterNameControl.GetNode<LineEdit>("VBoxContainer/InputPanel/VBoxContainer/VBoxContainer/LineEdit");
+        submitButton.Pressed += async() => await OnEnterNameSubmitted(nameinput.Text);
+    }
+
+    private async Task OnEnterNameSubmitted(string playerName)
+    {
+        gameController.SetPlayerName(Multiplayer.GetUniqueId(), playerName);
+
+        //Exit Enter Name
+        AnimationPlayer enterNameAnimationPlayer = GetNode<CanvasLayer>("PlayerNameSelect").GetNode<AnimationPlayer>("AnimationPlayer");
+        enterNameAnimationPlayer.PlayBackwards("Init");
+        await ToSignal(enterNameAnimationPlayer, "animation_finished");
+        GetNode<CanvasLayer>("PlayerNameSelect").QueueFree();
+
+        //Notify level manager to dispose home screen
+        await ExitAnimation();
+        
+        if(!Multiplayer.IsServer()) levelManager.NotifyReadyToDisposeLevel();
+        else _ = gameController.LoadLevel(GameController.Levels.Lobby);
+    }
+
+    private async Task EndLoadingAnimation()
+    {
         animationPlayer.PlayBackwards("Loading");
         await ToSignal(
         animationPlayer,
         AnimationPlayer.SignalName.AnimationFinished
     );
+    }
+
+    private async Task ExitAnimation()
+    {
 
         float animationSpeed = 1.5f;
         animationPlayer.Play("Transition", customSpeed: animationSpeed);

@@ -5,3 +5,6 @@ extends Node
 
 func _ready():
 	tube_client.join_session(session_id)
+
+func leave_session():
+	tube_client.leave_session()

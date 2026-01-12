@@ -22,7 +22,7 @@ public partial class Lobby : Control
         
         if(Multiplayer.IsServer())
         {
-            animationPlayer.Play("Init");
+            animationPlayer.Play("Init", customSpeed: 1.5f);
             this.UpdateRoomIDLabel();
         }
         else
@@ -32,16 +32,19 @@ public partial class Lobby : Control
         }
     }
 
-    private void LevelReadyToDispose()
+    private async void LevelReadyToDispose()
     {
         GD.Print("Lobby notified that previous level is ready to be disposed.");
         
         //Client in the scene
         this.ToggleVisibility(true);
         this.UpdateRoomIDLabel();
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
+        gameController.ClearLevel(GameController.Levels.HomeScreen); //Clear previous level
         float animationSpeed = 1.5f;
-        animationPlayer.Play("Init", customBlend: animationSpeed);
+        animationPlayer.Play("Init", customSpeed: animationSpeed);
     }
 
     private async void OnStartButtonPressed()
@@ -68,5 +71,15 @@ public partial class Lobby : Control
     {
         string sessionId = network.GetSessionId();
         roomIDLabel.Text = "Room ID: " + sessionId;
+    }
+
+    private void OnBackButtonPressed()
+    {
+        network.LeaveSession();
+    }
+
+    public override void _ExitTree()
+    {
+        levelManager.OnReadyToDisposeLevel -= LevelReadyToDispose;
     }
 }

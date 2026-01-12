@@ -186,8 +186,9 @@ public partial class Player : CharacterBody3D
     private PlayerState GetPlayerState(Vector3 velocity)
     {
         if (!IsOnFloor()) return PlayerState.Jumping;
+        float velocityLengthThreshold = 0.3f;
 
-        if (velocity.Length() > 0 )
+        if (velocity.Length() > velocityLengthThreshold)
         {
             if(Input.IsActionPressed("run")) return PlayerState.Running;
             else return PlayerState.Walking;

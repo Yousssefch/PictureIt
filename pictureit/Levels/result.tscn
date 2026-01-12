@@ -1,28 +1,20 @@
-[gd_scene load_steps=17 format=3 uid="uid://vcymmjbk4l5k"]
+[gd_scene load_steps=16 format=3 uid="uid://vcymmjbk4l5k"]
 
-[ext_resource type="PackedScene" uid="uid://dfxwsy6o4yyqr" path="res://Objects/UI/Main_button.tscn" id="1_wq1vu"]
+[ext_resource type="Script" uid="uid://b565ro6q4fhlr" path="res://Scripts/Result.cs" id="1_o7b8l"]
 [ext_resource type="Shader" uid="uid://xj8aylhm6wyx" path="res://Shaders/scroll.gdshader" id="2_57hus"]
-[ext_resource type="Texture2D" uid="uid://cp8nxakhoc60" path="res://Assets/UI/Pattern.png" id="3_67u5i"]
+[ext_resource type="Texture2D" uid="uid://hjenbxt88lti" path="res://Assets/UI/Pattern.svg" id="4_o7b8l"]
 [ext_resource type="FontFile" uid="uid://c2id15ny4hhv2" path="res://Assets/Fonts/Poppins/Poppins-Black.ttf" id="4_xjc2m"]
-[ext_resource type="Shader" uid="uid://b8dn0nx7acl1i" path="res://Shaders/Blur.gdshader" id="5_4kfcw"]
-[ext_resource type="Script" uid="uid://c2h4emr4rjufa" path="res://Scripts/LobbySpawner.cs" id="6_r3q7d"]
-[ext_resource type="PackedScene" uid="uid://cxgtnnoqi8783" path="res://Objects/Main/player_lobby.tscn" id="7_yiago"]
+[ext_resource type="PackedScene" uid="uid://cxgtnnoqi8783" path="res://Objects/Main/player_lobby.tscn" id="5_ws1jv"]
+[ext_resource type="FontFile" uid="uid://ym25t5faam2l" path="res://Assets/Fonts/Poppins/Poppins-Italic.ttf" id="6_wq1vu"]
+[ext_resource type="FontFile" uid="uid://dwxe74i1oxqla" path="res://Assets/Fonts/supply-center/Supply Center.otf" id="7_wq1vu"]
 [ext_resource type="Shader" uid="uid://db3oyd88vdcu1" path="res://Shaders/transition.gdshader" id="8_1qrv4"]
 [ext_resource type="Texture2D" uid="uid://dydarx7mykysi" path="res://Assets/UI/Transition_Image.png" id="9_6cvh0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nitg7"]
 shader = ExtResource("2_57hus")
-shader_parameter/speed = 0.03
+shader_parameter/speed = 0.8
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v025o"]
-shader = ExtResource("5_4kfcw")
-shader_parameter/lod = 2.575
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j83j6"]
-bg_color = Color(0.0156863, 0.0156863, 0.0156863, 0.419608)
-border_width_bottom = 50
-border_color = Color(0, 0, 0, 0.235294)
-border_blend = true
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_57hus"]
 
 [sub_resource type="Animation" id="Animation_j83j6"]
 resource_name = "Init"
@@ -89,17 +81,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="StartButton" parent="." instance=ExtResource("1_wq1vu")]
-top_level = true
-z_index = 3
-layout_mode = 1
-offset_left = -565.0
-offset_top = -314.0
-offset_right = -265.0
-offset_bottom = -264.0
-text = "Exit
-"
+script = ExtResource("1_o7b8l")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -119,66 +101,63 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_67u5i")
+texture = ExtResource("4_o7b8l")
 stretch_mode = 1
 
 [node name="Lobby" type="Label" parent="CanvasLayer"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -79.5
+offset_left = -79.0
 offset_top = 22.0
-offset_right = 79.5
+offset_right = 80.0
 offset_bottom = 93.0
 grow_horizontal = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("4_xjc2m")
 theme_override_font_sizes/font_size = 30
 text = "Result"
+horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_v025o")
-anchors_preset = 8
+[node name="PlayerScore" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -551.0
-offset_top = -178.0
-offset_right = 548.0
-offset_bottom = 209.0
+offset_left = -20.0
+offset_top = 104.0
+offset_right = 20.0
+offset_bottom = 144.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_j83j6")
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_57hus")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PlayerScore"]
 layout_mode = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 30
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+[node name="PlayerLobby" parent="CanvasLayer/PlayerScore/VBoxContainer" instance=ExtResource("5_ws1jv")]
 layout_mode = 2
-theme_override_constants/separation = 20
+isInMultiplayerLobby = false
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PanelContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/PlayerScore/VBoxContainer"]
 layout_mode = 2
-color = Color(0.12549, 0.12549, 0.12549, 0.32549)
+theme_override_fonts/font = ExtResource("6_wq1vu")
+text = "Score:"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/PlayerScore/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("7_wq1vu")
+theme_override_font_sizes/font_size = 20
+text = "0"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_r50g8")
 }
+autoplay = "Init"
 
 [node name="Multi" type="Node" parent="."]
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://cxgtnnoqi8783")
-spawn_path = NodePath("../CanvasLayer/PanelContainer/MarginContainer/VBoxContainer")
-spawn_limit = 4
-script = ExtResource("6_r3q7d")
-playerScene = ExtResource("7_yiago")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = 10
@@ -187,3 +166,8 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("9_6cvh0")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
+[node name="Pictures" type="Node" parent="."]

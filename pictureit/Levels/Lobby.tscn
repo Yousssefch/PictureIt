@@ -1,20 +1,23 @@
-[gd_scene load_steps=20 format=3 uid="uid://ibgvvm6ok624"]
+[gd_scene load_steps=25 format=3 uid="uid://ibgvvm6ok624"]
 
 [ext_resource type="Shader" uid="uid://xj8aylhm6wyx" path="res://Shaders/scroll.gdshader" id="1_3aojn"]
 [ext_resource type="Script" uid="uid://8rcoa7t7gbiu" path="res://Scripts/Lobby.cs" id="1_j83j6"]
-[ext_resource type="Texture2D" uid="uid://cp8nxakhoc60" path="res://Assets/UI/Pattern.png" id="2_f5k8n"]
 [ext_resource type="Shader" uid="uid://db3oyd88vdcu1" path="res://Shaders/transition.gdshader" id="3_f5k8n"]
+[ext_resource type="PackedScene" uid="uid://bt7xxn5ev0187" path="res://Objects/UI/Back_Button.tscn" id="3_mh5bn"]
+[ext_resource type="Texture2D" uid="uid://hjenbxt88lti" path="res://Assets/UI/Pattern.svg" id="4_v025o"]
 [ext_resource type="FontFile" uid="uid://c2id15ny4hhv2" path="res://Assets/Fonts/Poppins/Poppins-Black.ttf" id="4_v81qt"]
 [ext_resource type="FontFile" uid="uid://1ytkgwkrlunt" path="res://Assets/Fonts/Poppins/Poppins-LightItalic.ttf" id="5_v81qt"]
 [ext_resource type="PackedScene" uid="uid://dfxwsy6o4yyqr" path="res://Objects/UI/Main_button.tscn" id="6_2uni1"]
+[ext_resource type="Texture2D" uid="uid://jov1uepsfsqx" path="res://Assets/UI/start_screenshot.png" id="7_cax11"]
 [ext_resource type="Script" uid="uid://c2h4emr4rjufa" path="res://Scripts/LobbySpawner.cs" id="7_r50g8"]
 [ext_resource type="Shader" uid="uid://b8dn0nx7acl1i" path="res://Shaders/Blur.gdshader" id="7_xrkt0"]
 [ext_resource type="PackedScene" uid="uid://cxgtnnoqi8783" path="res://Objects/Main/player_lobby.tscn" id="8_1tyf7"]
+[ext_resource type="FontFile" uid="uid://ym25t5faam2l" path="res://Assets/Fonts/Poppins/Poppins-Italic.ttf" id="8_71c17"]
 [ext_resource type="Texture2D" uid="uid://dydarx7mykysi" path="res://Assets/UI/Transition_Image.png" id="11_v025o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nitg7"]
 shader = ExtResource("1_3aojn")
-shader_parameter/speed = 0.03
+shader_parameter/speed = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r50g8"]
 content_margin_right = 39.0
@@ -25,9 +28,18 @@ shader_parameter/lod = 2.575
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j83j6"]
 bg_color = Color(0.0156863, 0.0156863, 0.0156863, 0.419608)
-border_width_bottom = 50
+border_width_bottom = 10
 border_color = Color(0, 0, 0, 0.235294)
 border_blend = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_71c17"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mh5bn"]
+bg_color = Color(0.164706, 0.164706, 0.164706, 0.611765)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="Animation" id="Animation_j83j6"]
 resource_name = "Init"
@@ -43,6 +55,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [-23.88, 8.34]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer:layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.41),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [-1, 1]
+}
 
 [sub_resource type="Animation" id="Animation_v81qt"]
 length = 0.001
@@ -57,6 +81,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer:layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-1]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r50g8"]
@@ -96,17 +132,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_j83j6")
 
-[node name="StartButton" parent="." instance=ExtResource("6_2uni1")]
-top_level = true
-z_index = 3
-layout_mode = 1
-offset_left = 245.0
-offset_top = 259.0
-offset_right = 545.0
-offset_bottom = 309.0
-text = "Start
-"
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
@@ -125,7 +150,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_f5k8n")
+texture = ExtResource("4_v025o")
 stretch_mode = 1
 
 [node name="Lobby" type="Label" parent="CanvasLayer"]
@@ -155,35 +180,179 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxEmpty_r50g8")
 text = "Room: 39809"
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_v025o")
+[node name="Game Info" type="HBoxContainer" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -551.0
-offset_top = -178.0
-offset_right = 548.0
-offset_bottom = 209.0
+offset_left = -477.0
+offset_top = -180.0
+offset_right = 477.0
+offset_bottom = 133.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Game Info"]
+material = SubResource("ShaderMaterial_v025o")
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_j83j6")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Game Info/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 30
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Game Info/PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PanelContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Game Info/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_v81qt")
+text = "Map"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Game Info/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_71c17")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Game Info/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+texture = ExtResource("7_cax11")
+expand_mode = 1
+stretch_mode = 6
+flip_v = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Game Info/PanelContainer"]
 layout_mode = 2
 color = Color(0.12549, 0.12549, 0.12549, 0.32549)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Game Info/PanelContainer"]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Game Info"]
+material = SubResource("ShaderMaterial_v025o")
+custom_minimum_size = Vector2(144, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j83j6")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Game Info/PanelContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Map" type="VBoxContainer" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer/Map"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_v81qt")
+text = "Map:"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer/Map"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="Label" type="Label" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer/Map/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_71c17")
+theme_override_font_sizes/font_size = 10
+text = "City"
+
+[node name="Time" type="VBoxContainer" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer/Time"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_v81qt")
+text = "Time:"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer/Time"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="Label" type="Label" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer/Time/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_71c17")
+theme_override_font_sizes/font_size = 10
+text = "5:00"
+
+[node name="Mod" type="VBoxContainer" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer/Mod"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_v81qt")
+text = "Mod:"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer/Mod"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="Label" type="Label" parent="CanvasLayer/Game Info/PanelContainer2/MarginContainer/VBoxContainer/Mod/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_71c17")
+theme_override_font_sizes/font_size = 10
+text = "Multiplayer"
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Game Info/PanelContainer2"]
+layout_mode = 2
+color = Color(0.12549, 0.12549, 0.12549, 0.32549)
+
+[node name="StartButton" parent="CanvasLayer" instance=ExtResource("6_2uni1")]
+top_level = true
+z_index = 3
+offset_left = 245.0
+offset_top = 259.0
+offset_right = 545.0
+offset_bottom = 309.0
+text = "Start
+"
+
+[node name="BackButton" parent="CanvasLayer" instance=ExtResource("3_mh5bn")]
+z_index = 3
+offset_left = 15.0
+offset_top = 7.0
+offset_right = 55.0
+offset_bottom = 47.0
+
+[node name="Players Informations" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -479.0
+offset_top = 170.0
+offset_right = 475.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_mh5bn")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Players Informations"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Players Informations/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 100
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -194,7 +363,7 @@ libraries = {
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://cxgtnnoqi8783")
-spawn_path = NodePath("../CanvasLayer/PanelContainer/MarginContainer/VBoxContainer")
+spawn_path = NodePath("../CanvasLayer/Players Informations/MarginContainer/HBoxContainer")
 spawn_limit = 4
 script = ExtResource("7_r50g8")
 playerScene = ExtResource("8_1tyf7")
@@ -207,4 +376,5 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("11_v025o")
 
-[connection signal="pressed" from="StartButton" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="CanvasLayer/StartButton" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="CanvasLayer/BackButton" to="." method="OnBackButtonPressed"]

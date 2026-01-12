@@ -1,4 +1,4 @@
-[gd_scene load_steps=302 format=3 uid="uid://de3r13fdejrbn"]
+[gd_scene load_steps=304 format=3 uid="uid://de3r13fdejrbn"]
 
 [ext_resource type="Shader" uid="uid://cvd0x7lon1ur6" path="res://addons/sky_3d/shaders/SkyMaterial.gdshader" id="1_002w4"]
 [ext_resource type="PackedScene" uid="uid://dcx64heowg170" path="res://Objects/City/base.tscn" id="1_63xdh"]
@@ -42,6 +42,8 @@
 [ext_resource type="Shader" uid="uid://db3oyd88vdcu1" path="res://Shaders/transition.gdshader" id="39_e1nnl"]
 [ext_resource type="Texture2D" uid="uid://dydarx7mykysi" path="res://Assets/UI/Transition_Image.png" id="39_sy070"]
 [ext_resource type="PackedScene" uid="uid://cokjugwfmg88o" path="res://Objects/UI/timer.tscn" id="42_rro45"]
+[ext_resource type="PackedScene" uid="uid://cnnnm6ph3ppb5" path="res://Objects/UI/Input_Tips.tscn" id="43_tg4ty"]
+[ext_resource type="PackedScene" uid="uid://dt0qvd1062s36" path="res://Objects/UI/Objectives.tscn" id="44_fqbbu"]
 
 [sub_resource type="Resource" id="Resource_gxg4q"]
 resource_local_to_scene = true
@@ -4493,8 +4495,8 @@ shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_intensity = 10.0
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.586264, 0.772572)
-shader_parameter/cirrus_position2 = Vector2(0.586264, 0.772572)
+shader_parameter/cirrus_position1 = Vector2(0.0563497, 0.187257)
+shader_parameter/cirrus_position2 = Vector2(0.0563497, 0.187257)
 shader_parameter/cirrus_day_color = Color(0.824, 0.875, 1, 1)
 shader_parameter/cirrus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
 shader_parameter/cirrus_night_color = Color(0.09, 0.094, 0.129, 1)
@@ -4507,7 +4509,7 @@ shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_intensity = 0.6
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(128.196, 73.8992)
+shader_parameter/cumulus_position = Vector2(10.2806, 5.93659)
 shader_parameter/cumulus_texture = ExtResource("3_63xdh")
 shader_parameter/cumulus_day_color = Color(0.823529, 0.87451, 1, 1)
 shader_parameter/cumulus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
@@ -4566,6 +4568,21 @@ shader_parameter/clock_feather = 0.0
 shader_parameter/progress = 1.96
 shader_parameter/progress_bias = Vector2(0, 0)
 
+[sub_resource type="Animation" id="Animation_mf7pu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transition/TextureRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.96]
+}
+
 [sub_resource type="Animation" id="Animation_rro45"]
 resource_name = "Transition_Out"
 length = 1.5
@@ -4580,21 +4597,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.96, -0.37]
-}
-
-[sub_resource type="Animation" id="Animation_mf7pu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transition/TextureRect:material:shader_parameter/progress")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.96]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tg4ty"]
@@ -5545,3 +5547,9 @@ libraries = {
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="TimerUI" parent="HUD" instance=ExtResource("42_rro45")]
+offset_top = 7.0
+offset_bottom = 507.0
+
+[node name="Input" parent="HUD" instance=ExtResource("43_tg4ty")]
+
+[node name="Objectives" parent="HUD" instance=ExtResource("44_fqbbu")]

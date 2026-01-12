@@ -4,21 +4,21 @@ using System;
 
 public partial class NetworkHandler : Node
 {
-    PackedScene tubeServer;
-    PackedScene tubeClient;
     [Signal] public delegate void SessionCreatedEventHandler(string sessionId);
     [Signal] public delegate void PeerConnectedEventHandler(int peerId);
+    [Signal] public delegate void PeerDisconnectedEventHandler(int peerId);
     [Signal] public delegate void SessionJoinedEventHandler();
     [Signal] public delegate void FailedToCreateSessionEventHandler();
     [Signal] public delegate void FailedToJoinSessionEventHandler();
+    [Signal] public delegate void SessionLeftEventHandler();
     [Export] public string sessionId;
     Timer connectionTimer;
     bool isConnected = false;
     bool isConnecting = false;
+    Node tubeManager;
     override public void _Ready()
     {
-        tubeServer = GD.Load<PackedScene>("res://Objects/Other/tube_server.tscn");
-        tubeClient = GD.Load<PackedScene>("res://Objects/Other/tube_join.tscn");
+        tubeManager = GetNode("TubeManager");
         connectionTimer = GetNode<Timer>("ConnectionTimer");
     }
 
@@ -28,16 +28,13 @@ public partial class NetworkHandler : Node
 
     public void CreateServer()
     {
-        var serverInstance = tubeServer.Instantiate();
-        AddChild(serverInstance);
+        tubeManager.Call("create_session");
         isConnecting = true;
     }
 
     public void CreateClient(string oid)
     {
-        var clientInstance = tubeClient.Instantiate();
-        clientInstance.Set("session_id", oid);
-        AddChild(clientInstance);
+        tubeManager.Call("join_session", oid);
 
         connectionTimer.Start();
         isConnecting = true;
@@ -66,7 +63,7 @@ public partial class NetworkHandler : Node
     // Event Callbacks
     private void OnSessionCreated()
     {
-        this.sessionId =  GetNode("tube_server").Get("session_id").ToString();
+        this.sessionId = tubeManager.Get("session_id").ToString();
         GD.Print("Session Created with ID: " + this.sessionId);
         EmitSignal(SignalName.SessionCreated, this.sessionId);
         isConnected = true;
@@ -74,6 +71,7 @@ public partial class NetworkHandler : Node
     }
     private void OnSessionJoined()
     {
+        this.sessionId = tubeManager.Get("session_id").ToString();
         GD.Print("Session Joined");
         EmitSignal(SignalName.SessionJoined);
         isConnected = true;
@@ -84,6 +82,12 @@ public partial class NetworkHandler : Node
     {
         GD.Print("Peer Connected with ID: " + peerId);
         EmitSignal(SignalName.PeerConnected, peerId);
+    }
+
+    private void OnPeerDisconnected(int peerId)
+    {
+        GD.Print("Peer Disconnected with ID: " + peerId);
+        EmitSignal(SignalName.PeerDisconnected, peerId);
     }
 
     private void OnTubeClientError(Variant code,string error)
@@ -100,41 +104,55 @@ public partial class NetworkHandler : Node
     {
         EmitSignal(SignalName.FailedToCreateSession);
         GD.Print("Failed to create session");
-        removeTubeNodes();
     }
 
     private void OnFailedToJoinSession()
     {
         EmitSignal(SignalName.FailedToJoinSession);
         GD.Print("Failed to join session");
-        removeTubeNodes();
-
     }
 
-    private void removeTubeNodes()
+    public async void LeaveSession()
     {
-        if (HasNode("tube_server"))
+        if (Multiplayer.IsServer())
         {
-            GetNode("tube_server").QueueFree();
+            Rpc(MethodName.AllPeersLeft);
         }
-        if (HasNode("tube_join"))
-        {
-            GetNode("tube_join").QueueFree();
-        }
+        tubeManager.Call("leave_session");
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false)]
+    private void AllPeersLeft()
+    {
+        LeaveSession();
+    }
+
+    public async void OnSessionLeft()
+    {
+        EmitSignal(SignalName.SessionLeft);
+        GD.Print("Session Left");
+        isConnected = false;
+        isConnecting = false;
+    }
+    public async void CloseServer()
+    {
+        isConnected = false;
+        isConnecting = false;
+        Multiplayer.MultiplayerPeer.Close();
     }
 
     private void TimeOut()
     {
-        OnFailedToJoinSession();
+        if(isConnecting && !isConnected) {
+            OnFailedToJoinSession();
+            LeaveSession();
+            isConnecting = false;
+        }
     }
 
     public bool IsServer()
     {
-        if (HasNode("tube_server"))
-        {
-            return true;
-        }
-        return false;
+        return Multiplayer.IsServer();
     }
  
 }

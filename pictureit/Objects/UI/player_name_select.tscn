@@ -1,0 +1,175 @@
+[gd_scene load_steps=14 format=3 uid="uid://5ssvnowi80dv"]
+
+[ext_resource type="Shader" uid="uid://b8dn0nx7acl1i" path="res://Shaders/Blur.gdshader" id="1_3rhjp"]
+[ext_resource type="FontFile" uid="uid://c2id15ny4hhv2" path="res://Assets/Fonts/Poppins/Poppins-Black.ttf" id="2_6layc"]
+[ext_resource type="FontFile" uid="uid://ym25t5faam2l" path="res://Assets/Fonts/Poppins/Poppins-Italic.ttf" id="3_6layc"]
+[ext_resource type="FontFile" uid="uid://cmicxh0kinglh" path="res://Assets/Fonts/Poppins/Poppins-Light.ttf" id="3_xlshf"]
+[ext_resource type="PackedScene" uid="uid://dfxwsy6o4yyqr" path="res://Objects/UI/Main_button.tscn" id="4_5yij6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u1oqn"]
+shader = ExtResource("1_3rhjp")
+shader_parameter/lod = 0.0
+
+[sub_resource type="Animation" id="Animation_6layc"]
+resource_name = "Init"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.42]
+}
+
+[sub_resource type="Animation" id="Animation_xlshf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5yij6"]
+_data = {
+&"Init": SubResource("Animation_6layc"),
+&"RESET": SubResource("Animation_xlshf")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_av03v"]
+bg_color = Color(0.580392, 0.129412, 0.109804, 1)
+border_width_bottom = 3
+border_color = Color(0.44106, 0.0884774, 0.073277, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yyrp8"]
+bg_color = Color(0.122252, 0.122252, 0.122252, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r55oc"]
+content_margin_left = 5.0
+bg_color = Color(0.207843, 0.207843, 0.207843, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.580392, 0.129412, 0.109804, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3sytl"]
+content_margin_left = 5.0
+bg_color = Color(0.20871, 0.20871, 0.20871, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="PlayerNameSelect" type="CanvasLayer"]
+layer = 5
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_u1oqn")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5yij6")
+}
+autoplay = "Init"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -121.5
+offset_right = 150.0
+offset_bottom = 121.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = -3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+z_index = 1
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_av03v")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_6layc")
+text = "Name"
+
+[node name="InputPanel" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yyrp8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/InputPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/InputPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/InputPanel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_6layc")
+theme_override_font_sizes/font_size = 10
+text = "Enter your name:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/InputPanel/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_xlshf")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/focus = SubResource("StyleBoxFlat_r55oc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3sytl")
+
+[node name="Button" parent="VBoxContainer/InputPanel/VBoxContainer" instance=ExtResource("4_5yij6")]
+layout_mode = 2
+text = "Send"

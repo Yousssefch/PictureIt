@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxgtnnoqi8783"]
+[gd_scene load_steps=11 format=3 uid="uid://cxgtnnoqi8783"]
 
 [ext_resource type="Script" uid="uid://c10ega528iqes" path="res://Scripts/PlayerLobby.cs" id="1_qik54"]
 [ext_resource type="Texture2D" uid="uid://dp2tcv12o6e0j" path="res://Assets/Player/Cat2DSprite_SingleFrame.png" id="2_odnpr"]
@@ -6,14 +6,19 @@
 [ext_resource type="FontFile" uid="uid://bq7upriphxxsj" path="res://Assets/Fonts/Poppins/Poppins-SemiBold.ttf" id="2_xqwtw"]
 [ext_resource type="Texture2D" uid="uid://cnhc35x7488l8" path="res://Assets/Player/Cat2DSprite.png" id="3_xqwtw"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r3qfn"]
-bg_color = Color(0.580392, 0.129412, 0.109804, 1)
-border_width_bottom = 10
-border_color = Color(0.453261, 0.0920104, 0.0764353, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_odnpr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_koy4u"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.144063, 0.144063, 0.144062, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qpl7u"]
 atlas = ExtResource("3_xqwtw")
@@ -38,32 +43,32 @@ animations = [{
 }]
 
 [node name="PlayerLobby" type="PanelContainer"]
-custom_minimum_size = Vector2(0, 70)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -170.5
-offset_top = -35.5
-offset_right = 170.5
-offset_bottom = 35.5
+offset_top = -184.0
+offset_right = -109.5
+offset_bottom = -96.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
-theme_override_styles/panel = SubResource("StyleBoxFlat_r3qfn")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_odnpr")
 script = ExtResource("1_qik54")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_koy4u")
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer"]
-modulate = Color(0.982282, 0.585376, 0.535459, 1)
-custom_minimum_size = Vector2(50, 0)
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("2_odnpr")
 expand_mode = 5
@@ -73,8 +78,13 @@ animatedSprite = SubResource("SpriteFrames_koy4u")
 autoPlay = true
 isPlaying = true
 
-[node name="player_name" type="Label" parent="HBoxContainer"]
+[node name="player_name" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(61, 23)
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_xqwtw")
+theme_override_font_sizes/font_size = 8
 text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 1

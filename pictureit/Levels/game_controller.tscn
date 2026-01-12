@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bi685186rmg8j"]
+[gd_scene load_steps=9 format=3 uid="uid://bi685186rmg8j"]
 
 [ext_resource type="Script" uid="uid://dbtkxx81b2gov" path="res://Scripts/GameController.cs" id="1_a262i"]
 [ext_resource type="PackedScene" uid="uid://b44io1ui7261q" path="res://Objects/UI/home_screen.tscn" id="2_nwl57"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://vdaaobgsb712" path="res://Levels/LevelManager.cs" id="5_4np0t"]
 [ext_resource type="PackedScene" uid="uid://nblnaw6ig4ip" path="res://Objects/UI/notice.tscn" id="6_4np0t"]
 [ext_resource type="PackedScene" uid="uid://d4ee0teq6pdqu" path="res://Objects/Picture/picture.tscn" id="6_hovmj"]
+[ext_resource type="PackedScene" uid="uid://vcymmjbk4l5k" path="res://Levels/result.tscn" id="7_f4dn5"]
 
 [node name="GameController" type="Node"]
 script = ExtResource("1_a262i")
@@ -15,6 +16,7 @@ lobbyScene = ExtResource("3_6mxb4")
 gameScene = ExtResource("4_4np0t")
 noticeScene = ExtResource("6_4np0t")
 pictureScene = ExtResource("6_hovmj")
+resultsScene = ExtResource("7_f4dn5")
 
 [node name="Level" type="Node" parent="."]
 script = ExtResource("5_4np0t")
@@ -22,7 +24,7 @@ script = ExtResource("5_4np0t")
 [node name="HomeScreen" parent="Level" groups=["HomeScreen"] instance=ExtResource("2_nwl57")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://ibgvvm6ok624", "uid://de3r13fdejrbn")
+_spawnable_scenes = PackedStringArray("uid://ibgvvm6ok624", "uid://de3r13fdejrbn", "uid://vcymmjbk4l5k")
 spawn_path = NodePath("../Level")
 
 [node name="Pictures" type="CanvasLayer" parent="."]

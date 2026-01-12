@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3w5nu3anuj1b"]
+[gd_scene load_steps=5 format=3 uid="uid://c3w5nu3anuj1b"]
 
 [ext_resource type="Script" uid="uid://d2ow81rvq85u5" path="res://Scripts/NetworkHandler.cs" id="1_pk1gr"]
 [ext_resource type="Script" uid="uid://cy006uvidc4y" path="res://addons/tube/tube_client.gd" id="2_ixm22"]
 [ext_resource type="Resource" uid="uid://bw2vw8i2evx5o" path="res://tube_context.tres" id="3_sarjn"]
+[ext_resource type="Script" uid="uid://ba828l3078j5m" path="res://Scripts/tube_manager.gd" id="4_sarjn"]
 
 [node name="NetworkHandler" type="Node"]
 script = ExtResource("1_pk1gr")
@@ -18,8 +19,13 @@ metadata/_custom_type_script = "uid://cy006uvidc4y"
 wait_time = 5.0
 one_shot = true
 
+[node name="TubeManager" type="Node" parent="."]
+script = ExtResource("4_sarjn")
+
 [connection signal="error_raised" from="TubeClient" to="." method="OnTubeClientError"]
 [connection signal="peer_connected" from="TubeClient" to="." method="OnPeerConnected"]
+[connection signal="peer_disconnected" from="TubeClient" to="." method="OnPeerDisconnected"]
 [connection signal="session_created" from="TubeClient" to="." method="OnSessionCreated"]
 [connection signal="session_joined" from="TubeClient" to="." method="OnSessionJoined"]
+[connection signal="session_left" from="TubeClient" to="." method="OnSessionLeft"]
 [connection signal="timeout" from="ConnectionTimer" to="." method="TimeOut"]
