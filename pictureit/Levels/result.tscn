@@ -123,10 +123,10 @@ horizontal_alignment = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
-offset_top = 104.0
-offset_right = 20.0
-offset_bottom = 144.0
+offset_left = -30.5
+offset_top = 75.0
+offset_right = 30.5
+offset_bottom = 211.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_57hus")
@@ -136,6 +136,8 @@ layout_mode = 2
 
 [node name="PlayerLobby" parent="CanvasLayer/PlayerScore/VBoxContainer" instance=ExtResource("5_ws1jv")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 isInMultiplayerLobby = false
 
 [node name="Label" type="Label" parent="CanvasLayer/PlayerScore/VBoxContainer"]
@@ -148,7 +150,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("7_wq1vu")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 13
 text = "0"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -166,8 +168,5 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("9_6cvh0")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-spawn_path = NodePath("..")
 
 [node name="Pictures" type="Node" parent="."]

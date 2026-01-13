@@ -10,6 +10,7 @@ public partial class GameController : Node
     [Export] private PackedScene noticeScene;
     [Export] private PackedScene pictureScene;
     [Export] private PackedScene resultsScene;
+    [Export] private PackedScene winnerScene;
     private NetworkHandler networkHandler;
     private Node pictures;
     private Node Level;
@@ -18,11 +19,14 @@ public partial class GameController : Node
         HomeScreen,
         Lobby,
         Game,
-        Results
+        Results,
+        Winner
     }
     private Levels currentLevel = Levels.HomeScreen;
     private int maxPlayers = 4;
     private Godot.Collections.Dictionary<int, string> playerNames = new Godot.Collections.Dictionary<int, string>();
+    private string winnerName = "";
+    private float score = 0.0f;
 
     public override async void _Ready()
     {
@@ -56,6 +60,12 @@ public partial class GameController : Node
             case Levels.Results:
                 instance = resultsScene.Instantiate();
                 instance.AddToGroup("Results");
+                break;
+            case Levels.Winner:
+                instance = winnerScene.Instantiate();
+                instance.Set("winnerName", winnerName);
+                instance.Set("score", score);
+                instance.AddToGroup("Winner");
                 break;
         }
         currentLevel = level;
@@ -96,6 +106,13 @@ public partial class GameController : Node
                     break;
                 case Levels.Results:
                     if (child.IsInGroup("Results"))
+                    {
+                        child.QueueFree();
+                    }
+                    break;
+
+                case Levels.Winner:
+                    if (child.IsInGroup("Winner"))
                     {
                         child.QueueFree();
                     }
@@ -194,7 +211,7 @@ public partial class GameController : Node
         DirAccess dir = DirAccess.Open("res://References");
         if(dir != null)
         {
-            string filePath = "res://References/picture_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".tscn";
+            string filePath = "res://References/picture_vf" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".tscn";
             PackedScene packedScene = new PackedScene();
             Picture pictureNode = picture.Duplicate() as Picture;
             pictureNode.SetMetadata(picture.GetMetadata());
@@ -249,5 +266,11 @@ public partial class GameController : Node
     {
         playerNames.Clear();
         _ = LoadLevel(Levels.HomeScreen);
+    }
+
+    public void SetWinner(string name, float finalScore)
+    {
+        winnerName = name;
+        score = finalScore;
     }
 }

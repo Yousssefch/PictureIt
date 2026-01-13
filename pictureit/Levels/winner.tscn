@@ -1,0 +1,227 @@
+[gd_scene load_steps=17 format=3 uid="uid://bcso0oxolr4ed"]
+
+[ext_resource type="Shader" uid="uid://xj8aylhm6wyx" path="res://Shaders/scroll.gdshader" id="1_r36n1"]
+[ext_resource type="Script" uid="uid://cvtdk7mkevb2b" path="res://Scripts/Winner.cs" id="1_ynbxu"]
+[ext_resource type="Texture2D" uid="uid://hjenbxt88lti" path="res://Assets/UI/Pattern.svg" id="2_ynbxu"]
+[ext_resource type="FontFile" uid="uid://c2id15ny4hhv2" path="res://Assets/Fonts/Poppins/Poppins-Black.ttf" id="3_qog7p"]
+[ext_resource type="PackedScene" uid="uid://cxgtnnoqi8783" path="res://Objects/Main/player_lobby.tscn" id="4_dw2du"]
+[ext_resource type="FontFile" uid="uid://ym25t5faam2l" path="res://Assets/Fonts/Poppins/Poppins-Italic.ttf" id="5_cq77o"]
+[ext_resource type="FontFile" uid="uid://dwxe74i1oxqla" path="res://Assets/Fonts/supply-center/Supply Center.otf" id="6_j5wyq"]
+[ext_resource type="Shader" uid="uid://db3oyd88vdcu1" path="res://Shaders/transition.gdshader" id="7_uaei3"]
+[ext_resource type="Texture2D" uid="uid://dydarx7mykysi" path="res://Assets/UI/Transition_Image.png" id="8_kfyl4"]
+[ext_resource type="PackedScene" uid="uid://bt7xxn5ev0187" path="res://Objects/UI/Back_Button.tscn" id="10_qog7p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nitg7"]
+shader = ExtResource("1_r36n1")
+shader_parameter/speed = 0.8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_57hus"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r36n1"]
+shader = ExtResource("7_uaei3")
+shader_parameter/use_sprite_alpha = true
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 0
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(16, 9)
+shader_parameter/rotation_angle = 0.0
+shader_parameter/stagger = Vector2(0, 0)
+shader_parameter/stagger_frequency = Vector2i(2, 2)
+shader_parameter/flip_frequency = Vector2i(1, 1)
+shader_parameter/basic_feather = 0.0
+shader_parameter/use_mask_size = false
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 6
+shader_parameter/shape_feather = 0.1
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress = -0.42
+shader_parameter/progress_bias = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_ynbxu"]
+resource_name = "Init"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Transition:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.42, 3.88]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Transition:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, -1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer:layer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, -1]
+}
+
+[sub_resource type="Animation" id="Animation_qog7p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Transition:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.42]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Transition:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer:layer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dw2du"]
+_data = {
+&"Init": SubResource("Animation_ynbxu"),
+&"RESET": SubResource("Animation_qog7p")
+}
+
+[node name="Winner" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ynbxu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_nitg7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ynbxu")
+stretch_mode = 1
+
+[node name="Lobby" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -79.0
+offset_top = 22.0
+offset_right = 80.0
+offset_bottom = 93.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_qog7p")
+theme_override_font_sizes/font_size = 30
+text = "Winner:"
+horizontal_alignment = 1
+
+[node name="Winner" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = -68.0
+offset_right = 30.5
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_57hus")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Winner"]
+layout_mode = 2
+
+[node name="PlayerLobby" parent="CanvasLayer/Winner/VBoxContainer" instance=ExtResource("4_dw2du")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+isInMultiplayerLobby = false
+
+[node name="Label" type="Label" parent="CanvasLayer/Winner/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_cq77o")
+text = "Score:"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/Winner/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("6_j5wyq")
+theme_override_font_sizes/font_size = 13
+text = "0"
+
+[node name="Transition" type="TextureRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_r36n1")
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("8_kfyl4")
+
+[node name="Multi" type="Node" parent="."]
+
+[node name="Pictures" type="Node" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dw2du")
+}
+autoplay = "Init"
+
+[node name="BackButton" parent="." instance=ExtResource("10_qog7p")]
+
+[connection signal="pressed" from="BackButton" to="." method="OnReturnButtonPressed"]

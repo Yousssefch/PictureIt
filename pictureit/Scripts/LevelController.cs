@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 public partial class LevelController : Node3D
 {
-    [Export] private float _levelDuration = 10f; // Duration of the level in seconds
+    [Export] private float _levelDuration = 60f; // Duration of the level in seconds
     private float _elapsedTime = 0f;
     private Timer _levelTimer;
     private NetworkHandler networkHandler;

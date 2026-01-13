@@ -23,7 +23,7 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.508493),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -35,10 +35,10 @@ tracks/1/path = NodePath(".:custom_minimum_size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.7, 2.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(300, 200), Vector2(180, 130), Vector2(150, 100)]
+"values": [Vector2(300, 200), Vector2(180, 130)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -47,10 +47,10 @@ tracks/2/path = NodePath(".:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.7, 2.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(426, 224), Vector2(486, 259), Vector2(501, 274)]
+"values": [Vector2(426, 224), Vector2(486, 259)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -206,10 +206,10 @@ _data = {
 [node name="Picture" type="PanelContainer"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(150, 100)
-offset_left = 501.0
-offset_top = 548.0
-offset_right = 651.0
-offset_bottom = 648.0
+offset_left = 486.0
+offset_top = 259.0
+offset_right = 666.0
+offset_bottom = 389.0
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_1j5d7")
 script = ExtResource("1_qkj35")
